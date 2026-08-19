@@ -1,0 +1,66 @@
+# Build the site and publish the built output.
+#
+# Without this, GitHub Pages serves the repository verbatim — which means the
+# SOURCE index.html, whose only script tag is `/src/main.js`. That module
+# starts with `import './styles/base.css'` and imports `three` by bare
+# specifier, neither of which a browser can resolve, so nothing loads and the
+# page renders as unstyled black text on white. The deploy "succeeds" because
+# copying files always succeeds; it just never built anything.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; always finish the newest.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Fail if the build produced no bundle
+        # Guards against silently publishing an unbuilt tree again.
+        run: |
+          test -f dist/index.html
+          grep -q 'assets/index-.*\.css' dist/index.html
+          grep -q 'assets/index-.*\.js' dist/index.html
+          echo "dist/ looks like a real build:"
+          ls -la dist/assets
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
