@@ -1,0 +1,45 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── TERMINAL PHOSPHOR ──
+     The palette is the stack: MongoDB green leads, phosphor amber carries
+     metrics and place, AWS orange marks infrastructure. Channels are stored
+     as raw RGB triplets so every alpha variant derives from one source
+     instead of drifting into hand-mixed rgba() literals. */
+  --c-green: 0, 237, 100;   /* MongoDB green — primary */
+  --c-amber: 255, 176, 0;   /* phosphor amber — metrics, place, time */
+  --c-aws:   255, 153, 0;   /* AWS orange — infrastructure */
+  --c-text:  214, 224, 218;
+  --c-bg:    8, 11, 10;
+
+  --bg: #080b0a;
+  --bg2: #0b100e;
+  --surface: rgba(var(--c-text), 0.035);
+  --border: rgba(var(--c-text), 0.1);
+
+  --accent: #00ed64;        /* primary   — headings, links, structure */
+  --accent2: #ffb000;       /* secondary — metrics, coordinates, time */
+  --green: #00ed64;
+  --orange: #ff9900;
+
+  --text: #d6e0da;
+  --muted: rgba(var(--c-text), 0.52);
+
+  --font: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(var(--c-green), 0.6); border-radius: 2px; }
+

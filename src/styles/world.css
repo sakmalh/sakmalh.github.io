@@ -1,0 +1,253 @@
+/* ── 3D WORLD MODE ──
+   Everything here is gated on html.world-3d, which JS adds only when the
+   device can actually run the world. Without it the page is the plain
+   scrolling document it has always been — which is also the no-JS and
+   reduced-motion experience. */
+
+#scroll-track {
+  display: none;
+}
+
+html.world-3d #scroll-track {
+  display: block;
+  /* Height is set at runtime by Experience from the camera rig — a station
+     that has to pan earns proportionally more scroll, so it cannot be a
+     constant here. This is only the pre-JS fallback. */
+  height: 1100vh;
+  pointer-events: none;
+}
+
+/* The sections are now empty shells — their content has moved into the CSS3D
+   layer — so they must not take up any space. These are listed by id on
+   purpose: `#hero` sets `display: flex` in components.css, and an id selector
+   outranks any element/class combination, so a `body > section` rule here
+   would silently lose to it and leave the hero shell on screen. */
+html.world-3d #hero,
+html.world-3d #terminal,
+html.world-3d #architecture,
+html.world-3d #about,
+html.world-3d #experience,
+html.world-3d #projects,
+html.world-3d #skills,
+html.world-3d #contact,
+html.world-3d body > footer {
+  display: none;
+}
+
+html.world-3d body {
+  overflow-x: hidden;
+}
+
+/* CSS3D layer sits above the WebGL canvas. It must not swallow pointer
+   events wholesale — only the panels themselves are interactive. */
+.css3d-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.css3d-layer > div {
+  pointer-events: none;
+}
+
+.world-panel {
+  pointer-events: auto;
+  /* Perspective-transformed text needs a nudge to stay crisp. */
+  -webkit-font-smoothing: antialiased;
+  transition: opacity 0.35s ease;
+  will-change: transform, opacity;
+}
+
+/* Panels are their own surfaces in space, so the section plates and the
+   fade-in transform they inherited from the document layout both have to go.
+   The descendant rule matters: a wrapper panel (.station-head) is not itself
+   .fi, but everything inside it is — without this those panels render empty. */
+html.world-3d .world-panel.fi,
+html.world-3d .world-panel .fi {
+  opacity: 1;
+  transform: none;
+}
+
+html.world-3d .world-panel.hero-content {
+  text-align: center;
+  /* The hero is the one panel that had no plate, and green body copy over a
+     green particle field is unreadable without one. Soft-edged so it still
+     reads as floating rather than as a card. */
+  padding: 3rem 2.75rem 2.5rem;
+  border-radius: 22px;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(var(--c-bg), 0.95) 0%,
+    rgba(var(--c-bg), 0.88) 55%,
+    rgba(var(--c-bg), 0.45) 100%
+  );
+}
+
+/* Card panels get a heavier, self-contained surface — in the world they float
+   free rather than sitting on a section background. */
+html.world-3d .hl-card,
+html.world-3d .tl-item,
+html.world-3d .proj-card,
+html.world-3d .sk-group,
+html.world-3d .contact-card,
+html.world-3d .arch,
+html.world-3d .station-head {
+  background: rgba(var(--c-bg), 0.82);
+  border: 1px solid rgba(var(--c-text), 0.09);
+  border-radius: 14px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+}
+
+html.world-3d .station-head {
+  padding: 1.5rem 1.75rem;
+}
+
+html.world-3d .station-head .sec-sub {
+  margin-bottom: 0;
+}
+
+html.world-3d .tl-item {
+  padding: 1.75rem;
+}
+
+/* The timeline's rail and dots are drawn in 3D now (see Landmarks build_spine). */
+html.world-3d .timeline::before,
+html.world-3d .tl-item::before {
+  display: none;
+}
+
+/* Nav stays as flat 2D chrome so you always have an anchor and a way out. */
+html.world-3d nav {
+  z-index: 20;
+}
+
+/* Fixed footer credit, since the document footer is hidden in world mode. */
+html.world-3d .world-credit {
+  position: fixed;
+  bottom: 0.9rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: rgba(var(--c-text), 0.35);
+  pointer-events: none;
+}
+
+html:not(.world-3d) .world-credit {
+  display: none;
+}
+
+/* Station progress rail on the right edge — orientation inside the world. */
+html.world-3d .world-rail {
+  position: fixed;
+  right: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+html:not(.world-3d) .world-rail {
+  display: none;
+}
+
+.world-rail button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--c-text), 0.28);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.world-rail button:hover {
+  border-color: var(--accent);
+  transform: scale(1.25);
+}
+
+.world-rail button[aria-current='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+@media (max-width: 768px) {
+  html.world-3d .world-rail {
+    right: 0.7rem;
+  }
+}
+
+/* Sub-stations read as a continuation of the place before them. */
+.world-rail button.is-sub {
+  width: 6px;
+  height: 6px;
+  margin-left: 1.5px;
+  opacity: 0.7;
+}
+
+/* ── WORLD TYPOGRAPHY ──
+   A panel is framed to fit the viewport, so its text lands on screen at
+   roughly 75–90% of its authored size. Card copy that reads fine in a
+   document is borderline at that scale, so the world gets its own step up.
+   Only the small text is touched — headings already carry. */
+
+html.world-3d .hl-title { font-size: 1rem; }
+html.world-3d .hl-desc { font-size: 0.88rem; line-height: 1.6; }
+
+html.world-3d .proj-desc { font-size: 0.95rem; line-height: 1.7; }
+html.world-3d .proj-sub { font-size: 0.85rem; }
+html.world-3d .tag { font-size: 0.78rem; }
+html.world-3d .pm { font-size: 0.8rem; }
+
+html.world-3d .tl-list li { font-size: 0.95rem; line-height: 1.65; }
+html.world-3d .tl-company { font-size: 0.9rem; }
+html.world-3d .tl-date { font-size: 0.85rem; }
+
+html.world-3d .sk-pill { font-size: 0.85rem; }
+html.world-3d .sk-head { font-size: 0.95rem; }
+
+html.world-3d .contact-email { font-size: 1.15rem; }
+
+/* The about lede floats free rather than sitting on a card, so it needs its
+   own readable ground against the globe behind it. Targeted by its own class,
+   not by its position in .about-grid — once a panel is docked into the CSS3D
+   layer it no longer has those ancestors, and such a selector stops matching. */
+html.world-3d .about-lede {
+  background: linear-gradient(
+    100deg,
+    rgba(var(--c-bg), 0.9) 0%,
+    rgba(var(--c-bg), 0.78) 65%,
+    rgba(var(--c-bg), 0.2) 100%
+  );
+  padding: 2rem 2.25rem;
+  border-radius: 16px;
+}
+
+/* The terminal and architecture panels are already self-contained surfaces in
+   the document, so in the world they only need a heavier ground and depth. */
+html.world-3d .term,
+html.world-3d .arch {
+  background: rgba(var(--c-bg), 0.9);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+  margin-bottom: 0;
+}
+
+html.world-3d .term-body {
+  max-height: 20rem;
+}
+
+/* Panel copy steps up in the world (see WORLD TYPOGRAPHY above); the shell and
+   the diagrams need the same treatment or they read as fine print. */
+html.world-3d .term { font-size: 0.9rem; }
+html.world-3d .arch-node { font-size: 0.95rem; }
+html.world-3d .arch-node em { font-size: 0.82rem; }
+html.world-3d .arch-why li { font-size: 0.92rem; }
+html.world-3d .arch-head h3 { font-size: 1.3rem; }

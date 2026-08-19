@@ -1,0 +1,88 @@
+/* ── 3D BACKDROP ──
+   A single fixed layer behind the whole document. The canvas (WebGL, or the
+   2D fallback) is injected into it at runtime by main.js. */
+
+#backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+#backdrop.ready { opacity: 1; }
+
+#backdrop canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* The 2D fallback was tuned as a hero-only accent, so it needs dialling back
+   now that it covers the full page. */
+#backdrop canvas.is-fallback { opacity: 0.7; }
+
+/* Scrim: keeps body copy readable over a moving scene without flattening it. */
+#backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    transparent 0%,
+    rgba(var(--c-bg), 0.35) 55%,
+    rgba(var(--c-bg), 0.75) 100%
+  );
+}
+
+/* Content sits above the backdrop. The nav is deliberately excluded — it is
+   already `position: fixed` in layout.css, and restating position here would
+   drop it back into the flow. */
+body > section,
+body > footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Sections that used to be opaque plates now let the scene through. */
+#about,
+#projects,
+#contact {
+  background: rgba(var(--c-bg), 0.62);
+}
+
+/* Card surfaces need a real plate — the original translucent white worked
+   over a flat background but not over a field of moving particles. */
+.hl-card,
+.tl-item,
+.proj-card,
+.sk-group,
+.contact-card {
+  background: rgba(var(--c-bg), 0.58);
+}
+
+/* Blur is skipped on the `low` tier, where the cost is not worth it. */
+html:not([data-quality='low']) .hl-card,
+html:not([data-quality='low']) .tl-item,
+html:not([data-quality='low']) .proj-card,
+html:not([data-quality='low']) .sk-group,
+html:not([data-quality='low']) .contact-card {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Experience and skills have no section plate of their own, and their copy is
+   the densest on the page — give them a light wash. */
+#experience,
+#skills {
+  background: rgba(var(--c-bg), 0.34);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #backdrop {
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

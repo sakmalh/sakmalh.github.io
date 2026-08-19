@@ -3,364 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akmal · Full-Stack AI Engineer</title>
+  <title>Akmal Hameed · Agentic Systems &amp; Backend Engineer · NYC</title>
+  <meta name="description" content="Backend engineer in Queens, New York building production agentic systems — LangGraph agent graphs, multi-tenant RAG on MongoDB Atlas at sub-second latency, and the AWS and Kubernetes infrastructure underneath. Shipping since 2022.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #03050f;
-      --bg2: #080d1e;
-      --surface: rgba(255,255,255,0.03);
-      --border: rgba(255,255,255,0.07);
-      --accent: #38bdf8;
-      --accent2: #818cf8;
-      --green: #34d399;
-      --orange: #fb923c;
-      --text: #e2e8f0;
-      --muted: rgba(226,232,240,0.55);
-      --font: 'Inter', sans-serif;
-      --mono: 'JetBrains Mono', monospace;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 2px; }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2.5rem;
-      background: rgba(3,5,15,0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: var(--mono); font-size: 1rem; font-weight: 700;
-      color: var(--accent); letter-spacing: 0.05em;
-    }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      color: var(--muted); text-decoration: none; font-size: 0.82rem;
-      font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-socials { display: flex; gap: 1rem; align-items: center; }
-    .nav-socials a { color: var(--muted); transition: color 0.2s; }
-    .nav-socials a:hover { color: var(--accent); }
-
-    /* ── HERO ── */
-    #hero {
-      position: relative; min-height: 100vh;
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
-    }
-    #canvas-bg { position: absolute; inset: 0; opacity: 0.55; }
-    .hero-content {
-      position: relative; z-index: 1; text-align: center;
-      padding: 2rem; max-width: 920px;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.2);
-      border-radius: 999px; padding: 0.35rem 1rem;
-      font-size: 0.78rem; font-family: var(--mono); color: var(--accent);
-      margin-bottom: 2rem; letter-spacing: 0.05em;
-    }
-    .hero-badge .dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--green);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1); }
-      50% { opacity:0.4; transform:scale(0.75); }
-    }
-    .hero-name {
-      font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 900;
-      line-height: 1.05; letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #fff 0%, #c7d2fe 45%, var(--accent) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; margin-bottom: 0.6rem;
-    }
-    .hero-title {
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
-      color: var(--muted); font-weight: 400; margin-bottom: 1.5rem; min-height: 2rem;
-    }
-    .typewriter {
-      color: var(--accent); font-weight: 600;
-      border-right: 2px solid var(--accent); padding-right: 2px;
-      animation: blink 0.75s step-end infinite;
-    }
-    @keyframes blink {
-      0%,100% { border-color: var(--accent); }
-      50% { border-color: transparent; }
-    }
-    .hero-desc {
-      font-size: 1rem; color: var(--muted); max-width: 580px;
-      margin: 0 auto 2.5rem; line-height: 1.75;
-    }
-    .hero-buttons {
-      display: flex; gap: 1rem; justify-content: center;
-      flex-wrap: wrap; margin-bottom: 4rem;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.75rem; border-radius: 8px;
-      font-size: 0.88rem; font-weight: 600; text-decoration: none;
-      transition: all 0.25s; cursor: pointer; border: none;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent2), var(--accent));
-      color: #fff; box-shadow: 0 0 30px rgba(129,140,248,0.25);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(129,140,248,0.45); }
-    .btn-outline {
-      background: transparent; border: 1px solid var(--border); color: var(--text);
-    }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
-    /* Stats */
-    .hero-stats { display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; }
-    .stat-item { text-align: center; }
-    .stat-number {
-      font-size: 2rem; font-weight: 800; font-family: var(--mono);
-      color: var(--accent); line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.72rem; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem;
-    }
-    .stat-div { width: 1px; height: 40px; background: var(--border); align-self: center; }
-
-    /* Scroll indicator */
-    .scroll-hint {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-      color: var(--muted); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
-    }
-    .scroll-line {
-      width: 1px; height: 40px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      animation: scrollAnim 1.8s ease-in-out infinite;
-    }
-    @keyframes scrollAnim {
-      0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
-      50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
-      51% { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
-    }
-
-    /* ── SHARED SECTION ── */
-    section { padding: 6rem 2rem; }
-    .container { max-width: 1100px; margin: 0 auto; }
-    .sec-label {
-      font-family: var(--mono); font-size: 0.78rem; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.6rem;
-    }
-    .sec-title {
-      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
-      letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1rem;
-    }
-    .sec-sub { color: var(--muted); font-size: 0.95rem; max-width: 560px; line-height: 1.75; }
-
-    /* Fade-in */
-    .fi { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
-    .fi.in { opacity: 1; transform: translateY(0); }
-    .fi.d1 { transition-delay: 0.1s; }
-    .fi.d2 { transition-delay: 0.2s; }
-    .fi.d3 { transition-delay: 0.3s; }
-    .fi.d4 { transition-delay: 0.4s; }
-
-    /* ── ABOUT ── */
-    #about { background: var(--bg2); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; font-size: 0.93rem; }
-    .about-text p em { color: var(--text); font-style: normal; font-weight: 500; }
-    .about-meta { margin-top: 1.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .about-meta span { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
-    .hl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .hl-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.25rem; transition: all 0.3s;
-    }
-    .hl-card:hover {
-      border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.04);
-      transform: translateY(-3px);
-    }
-    .hl-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
-    .hl-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
-    .hl-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.55; }
-
-    /* ── EXPERIENCE ── */
-    .timeline { position: relative; padding-left: 2rem; }
-    .timeline::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
-      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
-    }
-    .tl-item { position: relative; padding-bottom: 3rem; }
-    .tl-item::before {
-      content: ''; position: absolute; left: -2.38rem; top: 0.35rem;
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--accent); box-shadow: 0 0 14px var(--accent);
-      border: 2px solid var(--bg);
-    }
-    .tl-head {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem;
-    }
-    .tl-role { font-size: 1.05rem; font-weight: 700; color: var(--text); }
-    .tl-company { font-size: 0.82rem; color: var(--accent); font-weight: 500; margin-top: 0.15rem; }
-    .tl-date {
-      font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 999px; padding: 0.25rem 0.75rem; white-space: nowrap;
-    }
-    .tl-list { list-style: none; }
-    .tl-list li {
-      position: relative; padding-left: 1.25rem; color: var(--muted);
-      font-size: 0.875rem; line-height: 1.7; margin-bottom: 0.65rem;
-    }
-    .tl-list li::before { content: '▸'; position: absolute; left: 0; color: var(--accent2); }
-    .mp {
-      display: inline-block;
-      background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.22);
-      color: var(--green); font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
-      border-radius: 4px; padding: 0.05rem 0.4rem; margin-left: 0.2rem;
-    }
-
-    /* ── PROJECTS ── */
-    #projects { background: var(--bg2); }
-    .proj-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem; margin-top: 3rem;
-    }
-    .proj-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 16px; padding: 2rem; transition: all 0.35s;
-      position: relative; overflow: hidden;
-    }
-    .proj-card::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(56,189,248,0.05) 0%, transparent 60%);
-      opacity: 0; transition: opacity 0.35s;
-    }
-    .proj-card:hover {
-      border-color: rgba(56,189,248,0.28); transform: translateY(-5px);
-      box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 30px rgba(56,189,248,0.06);
-    }
-    .proj-card:hover::after { opacity: 1; }
-    .proj-num { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); opacity: 0.35; margin-bottom: 0.7rem; }
-    .proj-title { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
-    .proj-sub { font-size: 0.78rem; color: var(--accent); font-weight: 500; margin-bottom: 0.9rem; }
-    .proj-desc { font-size: 0.865rem; color: var(--muted); line-height: 1.72; margin-bottom: 1.25rem; }
-    .proj-metrics { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
-    .pm {
-      display: flex; align-items: center; gap: 0.3rem;
-      background: rgba(52,211,153,0.07); border: 1px solid rgba(52,211,153,0.2);
-      border-radius: 6px; padding: 0.2rem 0.6rem;
-      font-size: 0.76rem; color: var(--green); font-family: var(--mono);
-    }
-    .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-    .tag {
-      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-      border-radius: 4px; padding: 0.18rem 0.55rem;
-      font-size: 0.7rem; color: var(--muted); font-family: var(--mono);
-      transition: all 0.2s;
-    }
-    .tag:hover { border-color: var(--accent2); color: var(--accent2); }
-
-    /* ── SKILLS ── */
-    .sk-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 1.25rem; margin-top: 3rem;
-    }
-    .sk-group {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.5rem;
-    }
-    .sk-head {
-      font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--accent2); margin-bottom: 1rem;
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .sk-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .sk-pills { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-    .sk-pill {
-      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-      border-radius: 6px; padding: 0.28rem 0.65rem; font-size: 0.78rem;
-      color: var(--muted); transition: all 0.2s; cursor: default;
-    }
-    .sk-pill:hover {
-      background: rgba(56,189,248,0.07); border-color: rgba(56,189,248,0.28);
-      color: var(--text); transform: translateY(-1px);
-    }
-
-    /* ── CONTACT ── */
-    #contact { background: var(--bg2); }
-    .contact-card {
-      max-width: 640px; margin: 3rem auto 0;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 3rem; text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .contact-card::before {
-      content: ''; position: absolute; top: -60%; left: 50%;
-      transform: translateX(-50%); width: 320px; height: 320px;
-      background: radial-gradient(ellipse, rgba(129,140,248,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .contact-email {
-      font-size: 1.05rem; font-family: var(--mono); color: var(--accent);
-      font-weight: 500; margin: 1.5rem 0; text-decoration: none;
-      display: block; transition: color 0.2s;
-    }
-    .contact-email:hover { color: var(--text); }
-    .contact-links { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
-    .soc-link {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.6rem 1.2rem; border: 1px solid var(--border);
-      border-radius: 8px; color: var(--muted); text-decoration: none;
-      font-size: 0.83rem; transition: all 0.2s;
-    }
-    .soc-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 2rem; text-align: center; color: var(--muted);
-      font-size: 0.78rem; border-top: 1px solid var(--border);
-      font-family: var(--mono);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.25rem; }
-      .nav-links { display: none; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .proj-grid { grid-template-columns: 1fr; }
-      .hero-stats { gap: 1.25rem; }
-      .stat-div { display: none; }
-    }
-  </style>
 </head>
 <body>
+
+<!-- 3D BACKDROP (canvas injected by main.js) -->
+<div id="backdrop" aria-hidden="true"></div>
+
+<!-- Supplies scroll distance in world mode; content lives in the CSS3D layer -->
+<div id="scroll-track" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav>
   <div class="nav-logo">akmal.sh</div>
   <ul class="nav-links">
+    <li><a href="#terminal">Shell</a></li>
     <li><a href="#about">About</a></li>
+    <li><a href="#architecture">Systems</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -378,37 +42,64 @@
 
 <!-- HERO -->
 <section id="hero">
-  <canvas id="canvas-bg"></canvas>
   <div class="hero-content">
-    <div class="hero-badge"><span class="dot"></span>Available for new opportunities</div>
-    <h1 class="hero-name">Akmal<br>Hameed</h1>
-    <p class="hero-title"><span class="typewriter" id="tw"></span></p>
-    <p class="hero-desc">Full-stack engineer with a backend focus, shipping production AI systems at a recruitment SaaS since 2022 — agentic LangGraph pipelines, multi-tenant RAG, and observable infrastructure that runs at real scale.</p>
+    <p class="hero-prompt"><span class="ps1-user">akmal@queens-nyc</span><span class="ps1-punc">:</span><span class="ps1-path">~</span><span class="ps1-punc">$</span> whoami</p>
+    <h1 class="hero-name">Akmal Hameed</h1>
+    <p class="hero-title"><span class="hero-caret">&gt;</span> <span class="typewriter" id="tw"></span></p>
+    <p class="hero-desc">I build the systems that run underneath AI products &mdash; agent graphs that don't fall over, retrieval that stays sub-second at scale, and the infrastructure and observability that keep both honest in production. Four years at one company, shipping.</p>
+    <ul class="hero-meta">
+      <li><span class="k">loc</span><span class="v">Queens, New York</span></li>
+      <li><span class="k">focus</span><span class="v">agentic systems &middot; backend</span></li>
+      <li><span class="k">stack</span><span class="v">Python &middot; MongoDB &middot; AWS &middot; Linux</span></li>
+      <li class="is-live"><span class="dot"></span><span class="v">open to new roles</span></li>
+    </ul>
     <div class="hero-buttons">
-      <a href="#projects" class="btn btn-primary">
+      <a href="#architecture" class="btn btn-primary">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        View Projects
+        See how it's built
       </a>
-      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      <a href="#contact" class="btn btn-outline">Get in touch</a>
     </div>
     <div class="hero-stats" id="stats">
-      <div class="stat-item"><div class="stat-number" data-val="100" data-sfx="K+">0</div><div class="stat-label">Profiles Searched</div></div>
+      <div class="stat-item"><div class="stat-number" data-val="100" data-sfx="K+">0</div><div class="stat-label">Profiles searchable</div></div>
       <div class="stat-div"></div>
-      <div class="stat-item"><div class="stat-number" data-val="6" data-sfx="">0</div><div class="stat-label">AI Projects</div></div>
+      <div class="stat-item"><div class="stat-number" data-val="4" data-sfx="+ yrs">0</div><div class="stat-label">In production</div></div>
       <div class="stat-div"></div>
-      <div class="stat-item"><div class="stat-number" data-val="3" data-sfx="">0</div><div class="stat-label">Roles at HiAcuity</div></div>
+      <div class="stat-item"><div class="stat-number" data-val="3" data-sfx="">0</div><div class="stat-label">Promotions, one company</div></div>
       <div class="stat-div"></div>
-      <div class="stat-item"><div class="stat-number" data-val="4" data-sfx="+ yrs">0</div><div class="stat-label">Experience</div></div>
+      <div class="stat-item"><div class="stat-number" data-val="6" data-sfx="">0</div><div class="stat-label">Services standardised</div></div>
     </div>
   </div>
   <div class="scroll-hint"><span>scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- TERMINAL -->
+<section id="terminal">
+  <div class="container">
+    <div class="station-head">
+      <p class="sec-label fi">Shell</p>
+      <h2 class="sec-title fi d1">Ask it directly</h2>
+      <p class="sec-sub fi d2">Everything on this page is queryable. Start with <code>help</code>.</p>
+    </div>
+    <div class="term fi" id="term">
+      <div class="term-bar">
+        <span class="term-dots"><i></i><i></i><i></i></span>
+        <span class="term-title">akmal@queens-nyc: ~</span>
+      </div>
+      <div class="term-body" id="term-out" role="log" aria-live="polite"></div>
+      <form class="term-row" id="term-form" autocomplete="off">
+        <label class="term-ps1" for="term-in"><span class="ps1-user">akmal@queens-nyc</span><span class="ps1-punc">:</span><span class="ps1-path">~</span><span class="ps1-punc">$</span></label>
+        <input class="term-in" id="term-in" name="cmd" spellcheck="false" autocapitalize="off" aria-label="Terminal command">
+      </form>
+    </div>
+  </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
     <div class="about-grid">
-      <div class="fi">
+      <div class="fi about-lede">
         <p class="sec-label">About Me</p>
         <h2 class="sec-title">AI Engineer.<br>Systems Thinker.</h2>
         <p>I'm a <em>full-stack engineer with a backend focus</em>, building production AI systems at a recruitment SaaS startup since 2022 — from agentic LangGraph pipelines and multi-tenant RAG to the infrastructure underneath them.</p>
@@ -430,48 +121,127 @@
   </div>
 </section>
 
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="container">
+    <div class="station-head">
+      <p class="sec-label fi">Systems</p>
+      <h2 class="sec-title fi d1">What I actually built</h2>
+      <p class="sec-sub fi d2">The two production systems I own at HiAcuity, drawn honestly &mdash; including the parts that exist only because the naive version didn't hold up.</p>
+    </div>
+
+    <div class="arch fi" id="arch-search">
+      <header class="arch-head">
+        <span class="arch-tag">01</span>
+        <h3>Multi-tenant candidate search</h3>
+        <p>100K+ profiles &middot; sub-second &middot; MongoDB Atlas + Voyage</p>
+      </header>
+      <div class="arch-flow">
+        <div class="arch-col">
+          <div class="arch-node is-in"><span class="arch-kind">input</span>Recruiter query<em>natural language</em></div>
+        </div>
+        <div class="arch-link" data-note="route"></div>
+        <div class="arch-col">
+          <div class="arch-node is-agent"><span class="arch-kind">LangGraph</span>Reasoning step<em>splits hard constraints from intent</em></div>
+        </div>
+        <div class="arch-link is-fork"></div>
+        <div class="arch-col is-lanes">
+          <div class="arch-node is-db"><span class="arch-kind">MongoDB</span>Structured filters<em>years &middot; skills &middot; location &middot; tenant</em></div>
+          <div class="arch-node is-vec"><span class="arch-kind">Atlas Vector</span>Semantic search<em>chunked, max-pooled &rarr; 1 vector per profile</em></div>
+        </div>
+        <div class="arch-link is-merge"></div>
+        <div class="arch-col">
+          <div class="arch-node is-rank"><span class="arch-kind">Voyage AI</span>Rerank shortlist<em>not the corpus</em></div>
+        </div>
+        <div class="arch-link"></div>
+        <div class="arch-col">
+          <div class="arch-node is-out"><span class="arch-kind">output</span>Ranked candidates</div>
+        </div>
+      </div>
+      <ul class="arch-why">
+        <li><b>Why max-pool the chunks?</b> One candidate should be one result. Chunk-level scoring put ten fragments of the same resume in the top ten.</li>
+        <li><b>Why split the query first?</b> Hard constraints are cheap in Mongo and expensive in a vector index. Filtering before search is what keeps it sub-second &mdash; reranking the whole corpus never would have.</li>
+        <li><b>Where tenancy lives.</b> At the filter layer, not the application layer, so a missing check can't leak another tenant's candidates.</li>
+      </ul>
+    </div>
+
+    <div class="arch fi d1" id="arch-interview">
+      <header class="arch-head">
+        <span class="arch-tag">02</span>
+        <h3>AI interview &amp; assessment agent</h3>
+        <p>LangGraph state machine &middot; live transcription &middot; auditable scoring</p>
+      </header>
+      <div class="arch-flow">
+        <div class="arch-col">
+          <div class="arch-node is-in"><span class="arch-kind">Recall</span>Live interview<em>WebSocket transcription</em></div>
+        </div>
+        <div class="arch-link"></div>
+        <div class="arch-col">
+          <div class="arch-node is-agent"><span class="arch-kind">LangGraph</span>Competency block<em>state machine, not a prompt chain</em></div>
+        </div>
+        <div class="arch-link is-fork"></div>
+        <div class="arch-col is-lanes">
+          <div class="arch-node is-check"><span class="arch-kind">critic</span>Fairness critic<em>screens follow-ups for bias before they're asked</em></div>
+          <div class="arch-node is-check"><span class="arch-kind">validate</span>Claim check<em>spoken claims vs. the candidate's resume</em></div>
+        </div>
+        <div class="arch-link is-merge"></div>
+        <div class="arch-col">
+          <div class="arch-node is-out"><span class="arch-kind">store</span>Structured assessment<em>comparable across candidates</em></div>
+        </div>
+      </div>
+      <ul class="arch-why">
+        <li><b>Why a state machine?</b> Follow-ups stay scoped to the competency being assessed, and the whole run is replayable &mdash; a flat prompt chain is neither.</li>
+        <li><b>Why a critic node?</b> A biased follow-up is unrecoverable once a candidate has heard it. Screening happens before it's asked, not in review.</li>
+        <li><b>Why structured scores?</b> Free-text assessments can't be compared. Structured ones can be audited, aggregated, and challenged.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="container">
-    <p class="sec-label fi">Career</p>
-    <h2 class="sec-title fi d1">Experience</h2>
-    <p class="sec-sub fi d2" style="margin-bottom:3rem;">Three years at the same company — intern to engineer, owning progressively more of the stack.</p>
+    <div class="station-head">
+      <p class="sec-label fi">Career</p>
+      <h2 class="sec-title fi d1">Experience</h2>
+      <p class="sec-sub fi d2" style="margin-bottom:3rem;">One company since 2022, intern to engineer. Three titles, no job hops — the same systems, owned deeper each year.</p>
+    </div>
 
     <div class="timeline">
       <div class="tl-item fi">
         <div class="tl-head">
-          <div><div class="tl-role">Software Engineer</div><div class="tl-company">HiAcuity · Remote (Australia)</div></div>
-          <div class="tl-date">Sept 2024 – Present</div>
+          <div><div class="tl-role">Software Engineer</div><div class="tl-company">HiAcuity &middot; Remote (Australia)</div></div>
+          <div class="tl-date">Sept 2024 &ndash; Present</div>
         </div>
         <ul class="tl-list">
-          <li><strong>AI Interview &amp; Assessment Agent</strong> (LangGraph) — Interview engine with competency-block questioning and a fairness-critic node that screens follow-ups for bias before they reach the candidate; scores write to a structured assessment store</li>
-          <li><strong>Multi-Tenant RAG Candidate Search</strong> (MongoDB Atlas + Voyage) — RAG pipeline on Atlas Vector Search with chunked, max-pooled embeddings and Voyage AI reranking; a reasoning step routes structured filters separately from semantic search across <span class="mp">100K+</span> profiles at <span class="mp">sub-second</span> latency</li>
-          <li><strong>Live Interview Transcription &amp; Validation</strong> (Recall + WebSockets) — WebSocket pipeline streaming live transcription from interviews; validates spoken claims against the candidate's resume and fact-checks in real time, surfacing deeper follow-ups and validation flags as the interview happens</li>
-          <li><strong>Stripe Subscription &amp; Billing</strong> — Owned the full build of a feature-gated subscription system with <span class="mp">3 pricing tiers</span>, eliminating nearly all manual billing exceptions through webhook-driven access control</li>
-          <li><strong>Frontend Engineering</strong> — Reworked the candidate portal's React architecture with useReducer + useContext and custom hooks that cut unnecessary re-renders and simplified state management</li>
-          <li><strong>Engineering Quality &amp; Mentorship</strong> — Set the code review standard for the team, running structured reviews and technical walkthroughs that measurably improved PR quality</li>
+          <li><strong>AI Interview &amp; Assessment Agent</strong> &mdash; Built the interview as a <span class="mp">LangGraph state machine</span> over competency blocks rather than a flat prompt chain, so follow-ups stay scoped to what's being assessed and every run is replayable. A fairness-critic node screens each generated follow-up for bias <em>before</em> it reaches the candidate &mdash; once a biased question has been asked, review can't undo it. Scores land in a structured store instead of free text, so they can actually be compared across candidates.</li>
+          <li><strong>Multi-Tenant RAG Candidate Search</strong> &mdash; Resumes are chunked and <span class="mp">max-pooled to one vector per profile</span>, because chunk-level scoring kept filling the top ten with fragments of the same resume. A reasoning step splits the query first: hard constraints become structured Mongo filters, and only the fuzzy remainder hits Atlas Vector Search &mdash; filtering before searching is what holds <span class="mp">sub-second</span> latency across <span class="mp">100K+ profiles</span>. Voyage reranks the shortlist, never the corpus. Tenant isolation sits at the filter layer, where a missed check can't leak.</li>
+          <li><strong>Live Interview Transcription &amp; Validation</strong> &mdash; WebSocket pipeline streaming transcription as the interview runs, fact-checking spoken claims against the candidate's own resume in real time. Mismatches surface as flags while there's still time to ask about them, rather than in a post-mortem nobody reads.</li>
+          <li><strong>Stripe Subscription &amp; Billing</strong> &mdash; Owned the full build. Feature gates read <span class="mp">webhook-driven state</span> rather than a nightly sync, so access reflects payment immediately across <span class="mp">3 tiers</span>; manual billing exceptions went to effectively zero.</li>
+          <li><strong>Frontend Engineering</strong> &mdash; Rebuilt the candidate portal's state with useReducer + useContext and custom hooks, collapsing prop-drilled state that was re-rendering the whole tree on every keystroke.</li>
+          <li><strong>Engineering Quality &amp; Mentorship</strong> &mdash; Set the team's code review standard and ran technical walkthroughs; PR quality measurably improved.</li>
         </ul>
       </div>
 
       <div class="tl-item fi">
         <div class="tl-head">
-          <div><div class="tl-role">Junior Software Engineer</div><div class="tl-company">HiAcuity · Remote (Australia)</div></div>
-          <div class="tl-date">Mar 2023 – Sept 2024</div>
+          <div><div class="tl-role">Junior Software Engineer</div><div class="tl-company">HiAcuity &middot; Remote (Australia)</div></div>
+          <div class="tl-date">Mar 2023 &ndash; Sept 2024</div>
         </div>
         <ul class="tl-list">
-          <li><strong>Microservice Standardization</strong> — Identified that shared logic had drifted across <span class="mp">6 microservices</span> with no consistency, then ran a cross-service refactor to consolidate utilities and base classes, cutting duplication significantly and making onboarding faster for new engineers</li>
-          <li><strong>Cloud Cost Reduction</strong> — Dug into production workloads with Prometheus + Grafana, right-sized EC2 instance classes, and tightened auto-scaling policies, lowering monthly infra spend with no impact on uptime or performance</li>
+          <li><strong>Microservice Standardisation</strong> &mdash; Shared logic had drifted across <span class="mp">6 services</span> with no common base, so every fix had to land six times. Ran the cross-service refactor to consolidate utilities and base classes; duplication dropped sharply and onboarding got faster.</li>
+          <li><strong>Cloud Cost Reduction</strong> &mdash; Profiled real production workloads in <span class="mp">Prometheus + Grafana</span> before changing anything, then right-sized EC2 instance classes against measured usage rather than reserved headroom and tightened auto-scaling. Monthly spend fell with no movement in uptime or latency.</li>
         </ul>
       </div>
 
       <div class="tl-item fi">
         <div class="tl-head">
-          <div><div class="tl-role">Software Engineering Intern</div><div class="tl-company">HiAcuity · Remote (Australia)</div></div>
-          <div class="tl-date">Sept 2022 – Mar 2023</div>
+          <div><div class="tl-role">Software Engineering Intern</div><div class="tl-company">HiAcuity &middot; Remote (Australia)</div></div>
+          <div class="tl-date">Sept 2022 &ndash; Mar 2023</div>
         </div>
         <ul class="tl-list">
-          <li><strong>Test Automation &amp; QA</strong> — Built <span class="mp">40+</span> Selenium test cases covering critical UI flows, cutting manual regression effort considerably; ran JMeter + Datadog load tests and flagged <span class="mp">3 bottlenecks</span> before they reached production</li>
-          <li><strong>Secure API Development</strong> — FastAPI endpoints with role- and group-based access control for two user personas (candidates and recruiters); the implementation held up through a full security review with no access issues found</li>
+          <li><strong>Test Automation &amp; QA</strong> &mdash; <span class="mp">40+</span> Selenium cases over the critical flows, cutting manual regression sharply; JMeter + Datadog load tests surfaced <span class="mp">3 bottlenecks</span> before they reached production.</li>
+          <li><strong>Secure API Development</strong> &mdash; FastAPI endpoints with role- and group-based access control across two personas; held up through a full security review with no access issues found.</li>
         </ul>
       </div>
     </div>
@@ -481,9 +251,11 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="container">
-    <p class="sec-label fi">Work</p>
-    <h2 class="sec-title fi d1">Projects</h2>
-    <p class="sec-sub fi d2">Proof-of-concept to production — systems that actually work at scale.</p>
+    <div class="station-head">
+      <p class="sec-label fi">Work</p>
+      <h2 class="sec-title fi d1">Projects</h2>
+      <p class="sec-sub fi d2">Proof-of-concept to production — systems that actually work at scale.</p>
+    </div>
 
     <div class="proj-grid">
       <div class="proj-card fi">
@@ -546,9 +318,11 @@
 <!-- SKILLS -->
 <section id="skills">
   <div class="container">
-    <p class="sec-label fi">Stack</p>
-    <h2 class="sec-title fi d1">Skills</h2>
-    <p class="sec-sub fi d2">Breadth across the stack, depth where it counts.</p>
+    <div class="station-head">
+      <p class="sec-label fi">Stack</p>
+      <h2 class="sec-title fi d1">Skills</h2>
+      <p class="sec-sub fi d2">Breadth across the stack, depth where it counts.</p>
+    </div>
     <div class="sk-grid">
       <div class="sk-group fi">
         <div class="sk-head">AI / ML</div>
@@ -622,120 +396,9 @@
 </section>
 
 <footer>Built by Akmal · 2026 · Queens, New York</footer>
+<p class="world-credit">Built by Akmal · 2026 · Queens, New York</p>
+<div class="world-rail" role="navigation" aria-label="Jump to station"></div>
 
-<script>
-// ── NEURAL NETWORK CANVAS ──
-const canvas = document.getElementById('canvas-bg');
-const ctx = canvas.getContext('2d');
-let W, H, nodes;
-const N = 75, DIST = 150;
-
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-
-function initNodes() {
-  nodes = Array.from({length: N}, () => ({
-    x: Math.random() * W, y: Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.45,
-    vy: (Math.random() - 0.5) * 0.45,
-    r: Math.random() * 1.8 + 0.8,
-  }));
-}
-
-function tick() {
-  ctx.clearRect(0, 0, W, H);
-  // edges
-  for (let i = 0; i < N; i++) {
-    for (let j = i + 1; j < N; j++) {
-      const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
-      const d = Math.sqrt(dx*dx + dy*dy);
-      if (d < DIST) {
-        ctx.beginPath();
-        ctx.moveTo(nodes[i].x, nodes[i].y);
-        ctx.lineTo(nodes[j].x, nodes[j].y);
-        ctx.strokeStyle = `rgba(99,102,241,${(1 - d/DIST) * 0.32})`;
-        ctx.lineWidth = 0.7;
-        ctx.stroke();
-      }
-    }
-  }
-  // nodes
-  nodes.forEach(n => {
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(99,102,241,0.65)';
-    ctx.fill();
-    n.x += n.vx; n.y += n.vy;
-    if (n.x < 0 || n.x > W) n.vx *= -1;
-    if (n.y < 0 || n.y > H) n.vy *= -1;
-  });
-  requestAnimationFrame(tick);
-}
-
-resize(); initNodes(); tick();
-window.addEventListener('resize', () => { resize(); initNodes(); });
-
-window.addEventListener('mousemove', e => {
-  nodes.forEach(n => {
-    const dx = e.clientX - n.x, dy = e.clientY - n.y;
-    const d = Math.sqrt(dx*dx + dy*dy);
-    if (d < 110) {
-      n.vx += dx * 0.00035; n.vy += dy * 0.00035;
-      const spd = Math.sqrt(n.vx*n.vx + n.vy*n.vy);
-      if (spd > 2) { n.vx /= spd/2; n.vy /= spd/2; }
-    }
-  });
-});
-
-// ── TYPEWRITER ──
-const roles = ['Full-Stack AI Engineer', 'Agentic Systems Builder', 'LangGraph Architect', 'RAG & Vector Search', 'Python · FastAPI · React'];
-let ri = 0, ci = 0, del = false;
-const tw = document.getElementById('tw');
-
-function type() {
-  const cur = roles[ri];
-  if (!del) {
-    tw.textContent = cur.slice(0, ++ci);
-    if (ci === cur.length) { del = true; setTimeout(type, 2200); return; }
-    setTimeout(type, 82);
-  } else {
-    tw.textContent = cur.slice(0, --ci);
-    if (ci === 0) { del = false; ri = (ri + 1) % roles.length; setTimeout(type, 380); return; }
-    setTimeout(type, 38);
-  }
-}
-type();
-
-// ── COUNTERS ──
-function runCounter(el) {
-  const val = parseInt(el.dataset.val);
-  const sfx = el.dataset.sfx || '';
-  const dur = 1800, start = performance.now();
-  function step(now) {
-    const t = Math.min((now - start) / dur, 1);
-    const ease = 1 - Math.pow(1 - t, 3);
-    const v = Math.round(val * ease);
-    el.textContent = sfx === '.5%' ? v + '.5%' : v + sfx;
-    if (t < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-
-// Trigger counters shortly after load (hero is immediately visible)
-setTimeout(() => {
-  document.querySelectorAll('[data-val]').forEach(runCounter);
-}, 600);
-
-// ── SCROLL FADE-IN ──
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.fi').forEach(el => obs.observe(el));
-</script>
+<script type="module" src="/src/main.js"></script>
 </body>
 </html>
