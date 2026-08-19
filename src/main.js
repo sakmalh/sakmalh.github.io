@@ -7,7 +7,7 @@ import './styles/backdrop.css';
 import './styles/world.css';
 
 import { initTypewriter } from './ui/typewriter.js';
-import { initCounters } from './ui/counters.js';
+import { initClock } from './ui/clock.js';
 import { initReveal } from './ui/reveal.js';
 import { initTerminal, pinTerminal } from './ui/terminal.js';
 import { initScroll, switchToDocumentMode, goToStation } from './ui/scroll.js';
@@ -74,7 +74,7 @@ async function boot() {
   if (worldMode) root.classList.add('world-3d');
 
   initTypewriter();
-  initCounters();
+  initClock();
   initTerminal();
 
   if (!worldMode) {

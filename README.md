@@ -16,6 +16,21 @@ npm run preview    # serve the built bundle
 `vite.config.js` uses `base: './'`, so `dist/` deploys as-is to Vercel, Netlify,
 GitHub Pages, or any static host.
 
+## Deployment
+
+`.github/workflows/deploy.yml` builds on push to `main` and publishes `dist/`.
+
+**GitHub Pages must be set to "GitHub Actions" as its source** (Settings →
+Pages). With the default "deploy from a branch", Pages serves the repository
+verbatim — which means the *source* `index.html`, whose only script tag is
+`/src/main.js`. That module opens with `import './styles/base.css'`, the browser
+refuses it (`Expected a JavaScript module script but the server responded with a
+MIME type of "text/css"`), and the page renders as unstyled black text on white.
+The deploy still reports success, because copying files always succeeds.
+
+The workflow asserts `dist/index.html` references hashed `assets/` before
+uploading, so an unbuilt tree cannot be published again.
+
 ## Palette and voice
 
 The palette is the stack, not a theme: **MongoDB green** (`#00ed64`) leads,
@@ -45,6 +60,11 @@ Three things exist to give context rather than assert it:
   because the naive version didn't hold up.
 - **Experience copy** — engineering decisions, not feature lists. Why chunks are
   max-pooled, why the query splits before it searches, why there's a critic node.
+- **The hero availability strip** — replaced a row of count-up statistics that
+  read as trivia at a glance. It answers what someone deciding whether to make
+  contact actually needs: availability, location with a **live local clock**
+  (`src/ui/clock.js`, so the timezone is obvious rather than asserted), remote
+  history, and the résumé PDF. `public/Akmal_Hameed.pdf` ships with the build.
 
 ## How the world works
 

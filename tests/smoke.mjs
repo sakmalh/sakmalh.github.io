@@ -144,8 +144,14 @@ const DOC_SECTIONS = ['hero', 'terminal', 'about', 'architecture', 'experience',
     tw2 = await page.textContent('#tw');
   }
   check('world: typewriter runs inside a panel', tw1 !== tw2, `"${tw1}" -> "${tw2}"`);
-  const stat = await page.textContent('.stat-number');
-  check('world: counters ran inside a panel', stat !== '0', stat);
+  const strip = await page.evaluate(() => ({
+    clock: document.getElementById('local-time')?.textContent?.trim() ?? '',
+    resume: document.querySelector('.ha-btn.is-primary')?.getAttribute('href') ?? '',
+    actions: document.querySelectorAll('.hero-availability .ha-btn').length,
+  }));
+  check('world: local clock is live inside a panel', /^\d{2}:\d{2}\s+\S+$/.test(strip.clock), strip.clock);
+  check('world: r\u00e9sum\u00e9 and profile links present', strip.resume.endsWith('.pdf') && strip.actions === 3,
+    `${strip.resume}, ${strip.actions} actions`);
 
   // ── The core guarantee ────────────────────────────────────────────────
   // Docked panels must render at EXACTLY 1:1. getBoundingClientRect is
@@ -295,7 +301,8 @@ for (const [label, opts, init] of [
     document.getElementById('term-form').requestSubmit();
     return /in production/.test(document.getElementById('term-out').textContent);
   }));
-  check(`${label}: content still works`, (await page.textContent('.stat-number')) !== '0');
+  check(`${label}: content still works`, /^\d{2}:\d{2}/.test(
+    (await page.textContent('#local-time')).trim()));
   await page.screenshot({ path: `${OUT}/${label}.png` });
   check(`${label}: no console errors`, errors.length === 0, errors.slice(0, 3).join(' | '));
   await ctx.close();

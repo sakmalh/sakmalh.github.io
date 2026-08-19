@@ -43,6 +43,7 @@
   font-size: 0.68rem;
 }
 .hero-meta .v { color: rgba(var(--c-text), 0.72); }
+.hero-time { color: var(--accent2); font-variant-numeric: tabular-nums; }
 .hero-meta .is-live .v { color: var(--accent); }
 .hero-meta .dot {
   width: 6px; height: 6px; border-radius: 50%;
@@ -51,13 +52,49 @@
   animation: pulse 2s infinite;
 }
 
-/* Metrics are data: mono, amber, unmissable. */
-.stat-number { font-family: var(--mono); color: var(--accent2); }
-.stat-label {
+/* ── NEXT ACTIONS ──
+   What replaced the old row of count-up statistics. The facts themselves live
+   with focus/stack above the call to action; this box is only the things a
+   reader might actually want to do next. */
+.hero-availability {
+  margin-top: 2rem;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(var(--c-text), 0.025);
+}
+
+.ha-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
   font-family: var(--mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.76rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.ha-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.ha-btn.is-primary {
+  background: rgba(var(--c-green), 0.1);
+  border-color: rgba(var(--c-green), 0.35);
+  color: var(--accent);
+}
+.ha-btn.is-primary:hover { background: rgba(var(--c-green), 0.18); }
+
+.ha-sub { color: rgba(var(--c-text), 0.45); }
+
+@media (max-width: 640px) {
+  .hero-availability { width: 100%; }
 }
 
 /* ── TERMINAL ─────────────────────────────────────────────────────────── */
