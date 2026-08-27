@@ -3,401 +3,228 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akmal Hameed · Agentic Systems &amp; Backend Engineer · NYC</title>
-  <meta name="description" content="Backend engineer in Queens, New York building production agentic systems — LangGraph agent graphs, multi-tenant RAG on MongoDB Atlas at sub-second latency, and the AWS and Kubernetes infrastructure underneath. Shipping since 2022.">
+  <title>Akmal Hameed · Full-Stack AI Engineer · Queens, NY</title>
+  <meta name="description" content="Full-stack engineer with a backend focus, building production AI systems since 2022 — LangGraph agents, multi-tenant RAG on MongoDB Atlas at sub-second latency, and the AWS and Kubernetes infrastructure underneath.">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script type="module" src="/src/main.js"></script>
 </head>
 <body>
 
-<!-- 3D BACKDROP (canvas injected by main.js) -->
-<div id="backdrop" aria-hidden="true"></div>
+<!-- Repo header -->
+<header class="repo-header">
+  <div class="repo-header-inner">
+    <div class="repo-crumb">
+      <svg class="octicon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></svg>
+      <a href="https://github.com/sakmalh" target="_blank" rel="noopener">sakmalh</a>
+      <span class="crumb-sep">/</span>
+      <a class="crumb-repo" href="https://github.com/sakmalh/sakmalh.github.io" target="_blank" rel="noopener">akmal</a>
+      <span class="repo-visibility">Public</span>
+    </div>
+    <nav class="repo-actions" aria-label="Primary actions">
+      <a class="gh-btn" href="https://github.com/sakmalh" target="_blank" rel="noopener">
+        <svg class="octicon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>
+        GitHub
+      </a>
+      <a class="gh-btn" href="https://linkedin.com/in/akmalhameed" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="gh-btn gh-btn-primary" href="./Akmal_Hameed.pdf" download>
+        <svg class="octicon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>
+        Résumé
+        <span class="gh-btn-note">PDF</span>
+      </a>
+    </nav>
+  </div>
+</header>
 
-<!-- Supplies scroll distance in world mode; content lives in the CSS3D layer -->
-<div id="scroll-track" aria-hidden="true"></div>
+<!-- File bar -->
+<div class="file-bar">
+  <div class="file-bar-inner">
+    <svg class="octicon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.75A.75.75 0 0 1 .75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0 1 11.006 1h4.245a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75h-4.507a2.25 2.25 0 0 0-1.591.659l-.622.621a.75.75 0 0 1-1.06 0l-.622-.621A2.25 2.25 0 0 0 5.258 13H.75a.75.75 0 0 1-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 0 0 5.003 2.5H1.5v9h3.757a3.75 3.75 0 0 1 1.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 0 1 1.992-.572H14.5v-9h-3.495a2.25 2.25 0 0 0-2.25 2.25Z"/></svg>
+    <strong>README.md</strong>
+    <span class="file-bar-meta">last updated Aug 2026</span>
+  </div>
+</div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">akmal.sh</div>
-  <ul class="nav-links">
-    <li><a href="#terminal">Shell</a></li>
+<main class="markdown-body">
+
+  <h1 id="akmal-hameed">Akmal Hameed</h1>
+
+  <p class="badges" aria-label="Status badges">
+    <span class="badge"><span class="badge-k">status</span><span class="badge-v badge-green">open to roles</span></span>
+    <span class="badge"><span class="badge-k">role</span><span class="badge-v badge-blue">full-stack · AI/backend</span></span>
+    <span class="badge"><span class="badge-k">experience</span><span class="badge-v badge-blue">4 yrs in production</span></span>
+    <span class="badge"><span class="badge-k">location</span><span class="badge-v badge-gray">Queens, NY</span></span>
+    <span class="badge"><span class="badge-k">education</span><span class="badge-v badge-gray">B.Sc. CS, First Class Honours</span></span>
+  </p>
+
+  <blockquote>
+    <p>Full-stack engineer with a backend focus, building production AI systems since 2022 — agent pipelines that don't fall over, retrieval that stays sub-second at scale, and the infrastructure that keeps both honest.</p>
+  </blockquote>
+
+  <p>
+    I work at <a href="https://www.hiacuity.com" target="_blank" rel="noopener">HiAcuity</a>, a recruitment SaaS company, where I grew from intern to
+    software engineer over four years — three titles, no job hops. I own the AI interview and assessment engine, the multi-tenant candidate
+    search pipeline, and a good share of the platform underneath them. I'm currently <strong>open to full-stack and AI engineering roles</strong>.
+    The fastest ways to reach me: <a href="mailto:s.hameedakmal@gmail.com">s.hameedakmal@gmail.com</a> or the
+    <a href="./Akmal_Hameed.pdf" download>résumé PDF</a>.
+  </p>
+
+  <h2 id="contents">Contents<a class="anchor" href="#contents" aria-label="Link to Contents">#</a></h2>
+  <ul class="toc">
     <li><a href="#about">About</a></li>
-    <li><a href="#architecture">Systems</a></li>
+    <li><a href="#systems">Systems I built at work</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div class="nav-socials">
-    <a href="https://github.com/sakmalh" target="_blank" aria-label="GitHub">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-    </a>
-    <a href="https://linkedin.com/in/akmalhameed" target="_blank" aria-label="LinkedIn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-    </a>
+
+  <h2 id="about">About<a class="anchor" href="#about" aria-label="Link to About">#</a></h2>
+  <p>
+    I'm a full-stack engineer who gravitates toward the backend: Python and FastAPI services, MongoDB and PostgreSQL data layers,
+    and the async, agentic systems that modern AI products are made of. At HiAcuity I've shipped an AI interview engine built as a
+    LangGraph state machine, a retrieval pipeline that searches 100K+ candidate profiles in under a second, a tiered Stripe billing
+    platform, and a self-hosted observability dashboard for our agents.
+  </p>
+  <p>
+    What I'm known for: <strong>shipping complex agentic and async systems independently</strong> — taking ownership of the technical
+    decisions, instrumenting everything, and raising the quality bar for the code around me. I also work across the stack when it's
+    needed: React and TypeScript on the front, Kubernetes and AWS underneath.
+  </p>
+
+  <h2 id="systems">Systems I built at work<a class="anchor" href="#systems" aria-label="Link to Systems">#</a></h2>
+  <p>The two production systems I own at HiAcuity, drawn honestly — including the parts that exist only because the naive version didn't hold up.</p>
+
+  <h3 id="candidate-search">1. Multi-tenant candidate search</h3>
+  <p><em>100K+ profiles · sub-second · MongoDB Atlas Vector Search + Voyage AI</em></p>
+  <pre class="diagram" aria-label="Candidate search pipeline diagram"><code>recruiter query (natural language)
+      │
+      ▼
+LangGraph reasoning step ── splits hard constraints from semantic intent
+      │
+      ├──► MongoDB filters         years · skills · location · tenant
+      │
+      └──► Atlas Vector Search     résumés chunked, max-pooled → 1 vector per profile
+                │
+                ▼
+        Voyage AI rerank           the shortlist only — never the corpus
+                │
+                ▼
+        ranked candidates          sub-second across 100K+ profiles</code></pre>
+  <p><strong>Design decisions that matter:</strong></p>
+  <ul>
+    <li><strong>Why max-pool the chunks?</strong> One candidate should be one result. Chunk-level scoring put ten fragments of the same résumé in the top ten.</li>
+    <li><strong>Why split the query first?</strong> Hard constraints are cheap in MongoDB and expensive in a vector index. Filtering before searching is what keeps it sub-second — reranking the whole corpus never would have.</li>
+    <li><strong>Where tenancy lives:</strong> at the filter layer, not the application layer, so a missing check can't leak another tenant's candidates.</li>
+  </ul>
+
+  <h3 id="interview-agent">2. AI interview &amp; assessment agent</h3>
+  <p><em>LangGraph state machine · live transcription · auditable scoring</em></p>
+  <pre class="diagram" aria-label="Interview agent pipeline diagram"><code>live interview (Recall) ──► WebSocket transcription stream
+      │
+      ▼
+LangGraph state machine ── one competency block at a time, fully replayable
+      │
+      ├──► fairness critic       screens each follow-up for bias BEFORE it's asked
+      │
+      └──► claim check           spoken claims vs. the candidate's own résumé
+                │
+                ▼
+        structured assessment    auditable, comparable across candidates</code></pre>
+  <p><strong>Design decisions that matter:</strong></p>
+  <ul>
+    <li><strong>Why a state machine, not a prompt chain?</strong> Follow-ups stay scoped to the competency being assessed, and the whole run is replayable. A flat chain is neither.</li>
+    <li><strong>Why a critic node?</strong> A biased follow-up is unrecoverable once a candidate has heard it. Screening happens before it's asked, not in review.</li>
+    <li><strong>Why structured scores?</strong> Free-text assessments can't be compared. Structured ones can be audited, aggregated, and challenged.</li>
+  </ul>
+
+  <h2 id="experience">Experience<a class="anchor" href="#experience" aria-label="Link to Experience">#</a></h2>
+  <p>One company since 2022, intern to engineer — the same systems, owned deeper each year.</p>
+
+  <h3 id="swe">Software Engineer <span class="h-meta">· HiAcuity (remote, Australia) · Sept 2024 – present</span></h3>
+  <ul>
+    <li><strong>AI interview &amp; assessment agent</strong> — built the interview as a LangGraph state machine over competency blocks (see <a href="#interview-agent">diagram above</a>). Scores land in a structured store instead of free text, so candidates can actually be compared.</li>
+    <li><strong>Multi-tenant RAG candidate search</strong> — the retrieval pipeline above: query splitting, max-pooled vectors, Voyage reranking, tenant isolation at the filter layer. Sub-second across 100K+ profiles.</li>
+    <li><strong>Live transcription &amp; validation</strong> — WebSocket pipeline that fact-checks spoken claims against the candidate's résumé while the interview is still running, so mismatches surface in time to ask about them.</li>
+    <li><strong>Stripe subscriptions &amp; billing</strong> — owned the full build across 3 tiers. Feature gates read webhook-driven state rather than a nightly sync, so access reflects payment immediately; manual billing exceptions went to effectively zero.</li>
+    <li><strong>Frontend engineering</strong> — rebuilt the candidate portal's state management with useReducer + useContext, collapsing prop-drilled state that re-rendered the whole tree on every keystroke.</li>
+    <li><strong>Quality &amp; mentorship</strong> — set the team's code-review standard and ran technical walkthroughs; PR quality measurably improved.</li>
+  </ul>
+
+  <h3 id="junior-swe">Junior Software Engineer <span class="h-meta">· HiAcuity · Mar 2023 – Sept 2024</span></h3>
+  <ul>
+    <li><strong>Microservice standardisation</strong> — shared logic had drifted across 6 services, so every fix had to land six times. Ran the cross-service refactor to consolidate utilities and base classes; duplication dropped sharply and onboarding got faster.</li>
+    <li><strong>Cloud cost reduction</strong> — profiled real workloads in Prometheus + Grafana first, then right-sized EC2 against measured usage and tightened auto-scaling. Monthly spend fell with no movement in uptime or latency.</li>
+  </ul>
+
+  <h3 id="intern">Software Engineering Intern <span class="h-meta">· HiAcuity · Sept 2022 – Mar 2023</span></h3>
+  <ul>
+    <li><strong>Test automation &amp; QA</strong> — 40+ Selenium cases over the critical flows; JMeter + Datadog load tests surfaced 3 bottlenecks before they reached production.</li>
+    <li><strong>Secure API development</strong> — FastAPI endpoints with role- and group-based access control across two personas; held up through a full security review with no access issues found.</li>
+  </ul>
+
+  <h2 id="projects">Projects<a class="anchor" href="#projects" aria-label="Link to Projects">#</a></h2>
+
+  <h3 id="ai-resume-search">AI Resume Search <span class="h-meta">· candidate matching engine</span></h3>
+  <p>Multi-stage retrieval pipeline: LangGraph routes queries through Pinecone vector search, then applies structured MongoDB filters on experience, skills, and location. Tested against 10K+ résumés with consistently strong top-3 matches.</p>
+  <p class="tags"><code>LangGraph</code> <code>Pinecone</code> <code>MongoDB</code> <code>Python</code></p>
+
+  <h3 id="agentic-map">Agentic-Map <span class="h-meta">· multi-agent trip resolver</span></h3>
+  <p>Trip planner that resolves vague stops like "grab a coffee on the way." A supervisor graph runs parallel Scout agents per stop alongside a Navigator (time budget) and a Concierge (weather and ETA), with human-in-the-loop approval and checkpointed, resumable sessions.</p>
+  <p class="tags"><code>LangGraph</code> <code>Claude</code> <code>Google Maps Routes v2</code> <code>Open-Meteo</code></p>
+
+  <h3 id="agenttrace">AgentTrace <span class="h-meta">· LLM agent observability dashboard</span></h3>
+  <p>Built because LangSmith doesn't cover self-hosted pipelines well. Hooks into LangGraph callbacks to capture node timings, tool-call sequences, and per-step token usage; traces live in PostgreSQL, and a React frontend renders them as live collapsible execution trees over WebSockets. Prometheus tracks latency and cost.</p>
+  <p class="tags"><code>LangGraph</code> <code>FastAPI</code> <code>React</code> <code>PostgreSQL</code> <code>Redis</code> <code>Prometheus</code></p>
+
+  <h3 id="devtools-mcp">DevTools MCP Server <span class="h-meta">· GitHub &amp; CI integration for Claude</span></h3>
+  <p>MCP server exposing GitHub PRs, CI logs, and issue trackers to Claude through typed tool schemas — natural-language code review and release notes without leaving the conversation.</p>
+  <p class="tags"><code>Python MCP SDK</code> <code>Claude API</code> <code>FastAPI</code> <code>Docker</code></p>
+
+  <h3 id="housediffusion">HouseDiffusion <span class="h-meta">· generative floor plans</span></h3>
+  <p>Fine-tuned a Diffusion + Transformer model for room-level layout synthesis — floor plan generation went from hours of manual drafting to under 5 seconds, behind a React drag-and-drop canvas and a FastAPI inference backend.</p>
+  <p class="tags"><code>PyTorch</code> <code>Diffusion</code> <code>React Flow</code> <code>FastAPI</code></p>
+
+  <h3 id="assignment-reminder">Assignment Reminder <span class="h-meta">· automated LMS tracker</span></h3>
+  <p>Selenium-based deadline tracker that fires WhatsApp reminders at 10, 3, and 1 days out. Deployed on EC2 with GitHub Actions CI/CD; picked up by 30+ students in its first semester without any promotion.</p>
+  <p class="tags"><code>Python</code> <code>Selenium</code> <code>AWS EC2</code> <code>GitHub Actions</code></p>
+
+  <h2 id="skills">Skills<a class="anchor" href="#skills" aria-label="Link to Skills">#</a></h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Area</th><th>Tools</th></tr></thead>
+      <tbody>
+        <tr><td>AI / ML</td><td>LangGraph, LLMs, RAG, AI agents, Atlas Vector Search, Voyage, Claude API, MCP, prompt engineering</td></tr>
+        <tr><td>Backend</td><td>Python, FastAPI, MongoDB, PostgreSQL, GraphQL, REST APIs, Bash</td></tr>
+        <tr><td>Frontend</td><td>React (TypeScript), Next.js, Vue.js, Tailwind CSS, JavaScript</td></tr>
+        <tr><td>AWS</td><td>EC2, S3, SQS, SES, Lambda, OpenSearch, ECS, IAM, Amplify, SageMaker</td></tr>
+        <tr><td>DevOps</td><td>Kubernetes, Docker, Helm, Kops, Grafana, Prometheus, GitHub CI/CD</td></tr>
+      </tbody>
+    </table>
   </div>
-</nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-content">
-    <p class="hero-prompt"><span class="ps1-user">akmal@queens-nyc</span><span class="ps1-punc">:</span><span class="ps1-path">~</span><span class="ps1-punc">$</span> whoami</p>
-    <h1 class="hero-name">Akmal Hameed</h1>
-    <p class="hero-title"><span class="hero-caret">&gt;</span> <span class="typewriter" id="tw"></span></p>
-    <p class="hero-desc">I build the systems that run underneath AI products &mdash; agent graphs that don't fall over, retrieval that stays sub-second at scale, and the infrastructure and observability that keep both honest in production. Four years at one company, shipping.</p>
-    <ul class="hero-meta">
-      <li class="is-live"><span class="dot"></span><span class="v">Open to roles</span></li>
-      <li><span class="k">based</span><span class="v">Queens, New York <time id="local-time" class="hero-time" aria-label="Akmal's local time">&mdash;</time></span></li>
-      <li><span class="k">focus</span><span class="v">agentic systems &middot; backend</span></li>
-      <li><span class="k">stack</span><span class="v">Python &middot; MongoDB &middot; AWS &middot; Linux</span></li>
-    </ul>
-    <div class="hero-buttons">
-      <a href="#architecture" class="btn btn-primary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        See how it's built
-      </a>
-      <a href="#contact" class="btn btn-outline">Get in touch</a>
-    </div>
-    <div class="hero-availability">
-      <a class="ha-btn is-primary" href="./Akmal_Hameed.pdf" download>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 12 12 17 17 12"/><path d="M4 20h16"/></svg>
-        R&eacute;sum&eacute; <span class="ha-sub">PDF</span>
-      </a>
-      <a class="ha-btn" href="https://linkedin.com/in/akmalhameed" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="ha-btn" href="https://github.com/sakmalh" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </div>
-  <div class="scroll-hint"><span>scroll</span><div class="scroll-line"></div></div>
-</section>
+  <h2 id="education">Education<a class="anchor" href="#education" aria-label="Link to Education">#</a></h2>
+  <ul>
+    <li><strong>B.Sc. Computer Science (Top-Up), First Class Honours</strong> — APIIT Sri Lanka (Staffordshire University), 2023 – 2024</li>
+    <li><strong>HND Computer Science, Merit</strong> — BCAS Sri Lanka (Pearson), 2021 – 2022</li>
+  </ul>
 
-<!-- TERMINAL -->
-<section id="terminal">
-  <div class="container">
-    <div class="station-head">
-      <p class="sec-label fi">Shell</p>
-      <h2 class="sec-title fi d1">Ask it directly</h2>
-      <p class="sec-sub fi d2">Everything on this page is queryable. Start with <code>help</code>.</p>
-    </div>
-    <div class="term fi" id="term">
-      <div class="term-bar">
-        <span class="term-dots"><i></i><i></i><i></i></span>
-        <span class="term-title">akmal@queens-nyc: ~</span>
-      </div>
-      <div class="term-body" id="term-out" role="log" aria-live="polite"></div>
-      <form class="term-row" id="term-form" autocomplete="off">
-        <label class="term-ps1" for="term-in"><span class="ps1-user">akmal@queens-nyc</span><span class="ps1-punc">:</span><span class="ps1-path">~</span><span class="ps1-punc">$</span></label>
-        <input class="term-in" id="term-in" name="cmd" spellcheck="false" autocapitalize="off" aria-label="Terminal command">
-      </form>
-    </div>
-  </div>
-</section>
+  <h2 id="contact">Contact<a class="anchor" href="#contact" aria-label="Link to Contact">#</a></h2>
+  <p>Open to full-stack and AI engineering roles. I like hard problems and teams that actually ship.</p>
+  <ul class="contact-list">
+    <li><strong>Email:</strong> <a href="mailto:s.hameedakmal@gmail.com">s.hameedakmal@gmail.com</a> <button class="copy-btn" type="button" data-copy="s.hameedakmal@gmail.com">copy</button></li>
+    <li><strong>Phone:</strong> <a href="tel:+12039974545">203-997-4545</a></li>
+    <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/akmalhameed" target="_blank" rel="noopener">linkedin.com/in/akmalhameed</a></li>
+    <li><strong>GitHub:</strong> <a href="https://github.com/sakmalh" target="_blank" rel="noopener">github.com/sakmalh</a></li>
+    <li><strong>Résumé:</strong> <a href="./Akmal_Hameed.pdf" download>Akmal_Hameed.pdf</a></li>
+  </ul>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="fi about-lede">
-        <p class="sec-label">About Me</p>
-        <h2 class="sec-title">AI Engineer.<br>Systems Thinker.</h2>
-        <p>I'm a <em>full-stack engineer with a backend focus</em>, building production AI systems at a recruitment SaaS startup since 2022 — from agentic LangGraph pipelines and multi-tenant RAG to the infrastructure underneath them.</p>
-        <p>At <em>HiAcuity</em>, I grew from intern to software engineer — owning an AI interview and assessment engine, a candidate-matching pipeline on MongoDB Atlas Vector Search with Voyage AI reranking, a tiered Stripe billing platform, and a self-hosted agent observability dashboard.</p>
-        <p>I'm known for <em>shipping complex agentic and async systems independently</em>: taking ownership of technical decisions, building observable systems, and raising the quality bar across the team.</p>
-        <div class="about-meta">
-          <span>📍 Queens, New York</span>
-          <span>🎓 B.Sc. CS · First Class Honours</span>
-          <span>🏢 HiAcuity · Sept 2022 – Present</span>
-        </div>
-      </div>
-      <div class="hl-grid fi d1">
-        <div class="hl-card"><div class="hl-icon">🤖</div><div class="hl-title">AI & Agents</div><div class="hl-desc">LangGraph agents, multi-tenant RAG, Atlas Vector Search + Voyage reranking across 100K+ profiles</div></div>
-        <div class="hl-card"><div class="hl-icon">⚡</div><div class="hl-title">Backend Scale</div><div class="hl-desc">Python, FastAPI, MongoDB, PostgreSQL — async pipelines, WebSocket streaming, sub-second latency</div></div>
-        <div class="hl-card"><div class="hl-icon">☁️</div><div class="hl-title">Cloud & DevOps</div><div class="hl-desc">AWS-native (SQS, OpenSearch, ECS), Kubernetes, Helm, Kops, Grafana + Prometheus observability</div></div>
-        <div class="hl-card"><div class="hl-icon">🎨</div><div class="hl-title">Frontend</div><div class="hl-desc">React, TypeScript, Next.js — useReducer/useContext architecture, live trace dashboards</div></div>
-      </div>
-    </div>
-  </div>
-</section>
+  <hr>
+  <footer class="site-footer">
+    <p>Built by Akmal · Queens, New York · <a href="https://github.com/sakmalh/sakmalh.github.io" target="_blank" rel="noopener">view source</a> · <a href="#akmal-hameed">back to top ↑</a></p>
+  </footer>
 
-<!-- ARCHITECTURE -->
-<section id="architecture">
-  <div class="container">
-    <div class="station-head">
-      <p class="sec-label fi">Systems</p>
-      <h2 class="sec-title fi d1">What I actually built</h2>
-      <p class="sec-sub fi d2">The two production systems I own at HiAcuity, drawn honestly &mdash; including the parts that exist only because the naive version didn't hold up.</p>
-    </div>
+</main>
 
-    <div class="arch fi" id="arch-search">
-      <header class="arch-head">
-        <span class="arch-tag">01</span>
-        <h3>Multi-tenant candidate search</h3>
-        <p>100K+ profiles &middot; sub-second &middot; MongoDB Atlas + Voyage</p>
-      </header>
-      <div class="arch-flow">
-        <div class="arch-col">
-          <div class="arch-node is-in"><span class="arch-kind">input</span>Recruiter query<em>natural language</em></div>
-        </div>
-        <div class="arch-link" data-note="route"></div>
-        <div class="arch-col">
-          <div class="arch-node is-agent"><span class="arch-kind">LangGraph</span>Reasoning step<em>splits hard constraints from intent</em></div>
-        </div>
-        <div class="arch-link is-fork"></div>
-        <div class="arch-col is-lanes">
-          <div class="arch-node is-db"><span class="arch-kind">MongoDB</span>Structured filters<em>years &middot; skills &middot; location &middot; tenant</em></div>
-          <div class="arch-node is-vec"><span class="arch-kind">Atlas Vector</span>Semantic search<em>chunked, max-pooled &rarr; 1 vector per profile</em></div>
-        </div>
-        <div class="arch-link is-merge"></div>
-        <div class="arch-col">
-          <div class="arch-node is-rank"><span class="arch-kind">Voyage AI</span>Rerank shortlist<em>not the corpus</em></div>
-        </div>
-        <div class="arch-link"></div>
-        <div class="arch-col">
-          <div class="arch-node is-out"><span class="arch-kind">output</span>Ranked candidates</div>
-        </div>
-      </div>
-      <ul class="arch-why">
-        <li><b>Why max-pool the chunks?</b> One candidate should be one result. Chunk-level scoring put ten fragments of the same resume in the top ten.</li>
-        <li><b>Why split the query first?</b> Hard constraints are cheap in Mongo and expensive in a vector index. Filtering before search is what keeps it sub-second &mdash; reranking the whole corpus never would have.</li>
-        <li><b>Where tenancy lives.</b> At the filter layer, not the application layer, so a missing check can't leak another tenant's candidates.</li>
-      </ul>
-    </div>
-
-    <div class="arch fi d1" id="arch-interview">
-      <header class="arch-head">
-        <span class="arch-tag">02</span>
-        <h3>AI interview &amp; assessment agent</h3>
-        <p>LangGraph state machine &middot; live transcription &middot; auditable scoring</p>
-      </header>
-      <div class="arch-flow">
-        <div class="arch-col">
-          <div class="arch-node is-in"><span class="arch-kind">Recall</span>Live interview<em>WebSocket transcription</em></div>
-        </div>
-        <div class="arch-link"></div>
-        <div class="arch-col">
-          <div class="arch-node is-agent"><span class="arch-kind">LangGraph</span>Competency block<em>state machine, not a prompt chain</em></div>
-        </div>
-        <div class="arch-link is-fork"></div>
-        <div class="arch-col is-lanes">
-          <div class="arch-node is-check"><span class="arch-kind">critic</span>Fairness critic<em>screens follow-ups for bias before they're asked</em></div>
-          <div class="arch-node is-check"><span class="arch-kind">validate</span>Claim check<em>spoken claims vs. the candidate's resume</em></div>
-        </div>
-        <div class="arch-link is-merge"></div>
-        <div class="arch-col">
-          <div class="arch-node is-out"><span class="arch-kind">store</span>Structured assessment<em>comparable across candidates</em></div>
-        </div>
-      </div>
-      <ul class="arch-why">
-        <li><b>Why a state machine?</b> Follow-ups stay scoped to the competency being assessed, and the whole run is replayable &mdash; a flat prompt chain is neither.</li>
-        <li><b>Why a critic node?</b> A biased follow-up is unrecoverable once a candidate has heard it. Screening happens before it's asked, not in review.</li>
-        <li><b>Why structured scores?</b> Free-text assessments can't be compared. Structured ones can be audited, aggregated, and challenged.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="station-head">
-      <p class="sec-label fi">Career</p>
-      <h2 class="sec-title fi d1">Experience</h2>
-      <p class="sec-sub fi d2" style="margin-bottom:3rem;">One company since 2022, intern to engineer. Three titles, no job hops — the same systems, owned deeper each year.</p>
-    </div>
-
-    <div class="timeline">
-      <div class="tl-item fi">
-        <div class="tl-head">
-          <div><div class="tl-role">Software Engineer</div><div class="tl-company">HiAcuity &middot; Remote (Australia)</div></div>
-          <div class="tl-date">Sept 2024 &ndash; Present</div>
-        </div>
-        <ul class="tl-list">
-          <li><strong>AI Interview &amp; Assessment Agent</strong> &mdash; Built the interview as a <span class="mp">LangGraph state machine</span> over competency blocks rather than a flat prompt chain, so follow-ups stay scoped to what's being assessed and every run is replayable. A fairness-critic node screens each generated follow-up for bias <em>before</em> it reaches the candidate &mdash; once a biased question has been asked, review can't undo it. Scores land in a structured store instead of free text, so they can actually be compared across candidates.</li>
-          <li><strong>Multi-Tenant RAG Candidate Search</strong> &mdash; Resumes are chunked and <span class="mp">max-pooled to one vector per profile</span>, because chunk-level scoring kept filling the top ten with fragments of the same resume. A reasoning step splits the query first: hard constraints become structured Mongo filters, and only the fuzzy remainder hits Atlas Vector Search &mdash; filtering before searching is what holds <span class="mp">sub-second</span> latency across <span class="mp">100K+ profiles</span>. Voyage reranks the shortlist, never the corpus. Tenant isolation sits at the filter layer, where a missed check can't leak.</li>
-          <li><strong>Live Interview Transcription &amp; Validation</strong> &mdash; WebSocket pipeline streaming transcription as the interview runs, fact-checking spoken claims against the candidate's own resume in real time. Mismatches surface as flags while there's still time to ask about them, rather than in a post-mortem nobody reads.</li>
-          <li><strong>Stripe Subscription &amp; Billing</strong> &mdash; Owned the full build. Feature gates read <span class="mp">webhook-driven state</span> rather than a nightly sync, so access reflects payment immediately across <span class="mp">3 tiers</span>; manual billing exceptions went to effectively zero.</li>
-          <li><strong>Frontend Engineering</strong> &mdash; Rebuilt the candidate portal's state with useReducer + useContext and custom hooks, collapsing prop-drilled state that was re-rendering the whole tree on every keystroke.</li>
-          <li><strong>Engineering Quality &amp; Mentorship</strong> &mdash; Set the team's code review standard and ran technical walkthroughs; PR quality measurably improved.</li>
-        </ul>
-      </div>
-
-      <div class="tl-item fi">
-        <div class="tl-head">
-          <div><div class="tl-role">Junior Software Engineer</div><div class="tl-company">HiAcuity &middot; Remote (Australia)</div></div>
-          <div class="tl-date">Mar 2023 &ndash; Sept 2024</div>
-        </div>
-        <ul class="tl-list">
-          <li><strong>Microservice Standardisation</strong> &mdash; Shared logic had drifted across <span class="mp">6 services</span> with no common base, so every fix had to land six times. Ran the cross-service refactor to consolidate utilities and base classes; duplication dropped sharply and onboarding got faster.</li>
-          <li><strong>Cloud Cost Reduction</strong> &mdash; Profiled real production workloads in <span class="mp">Prometheus + Grafana</span> before changing anything, then right-sized EC2 instance classes against measured usage rather than reserved headroom and tightened auto-scaling. Monthly spend fell with no movement in uptime or latency.</li>
-        </ul>
-      </div>
-
-      <div class="tl-item fi">
-        <div class="tl-head">
-          <div><div class="tl-role">Software Engineering Intern</div><div class="tl-company">HiAcuity &middot; Remote (Australia)</div></div>
-          <div class="tl-date">Sept 2022 &ndash; Mar 2023</div>
-        </div>
-        <ul class="tl-list">
-          <li><strong>Test Automation &amp; QA</strong> &mdash; <span class="mp">40+</span> Selenium cases over the critical flows, cutting manual regression sharply; JMeter + Datadog load tests surfaced <span class="mp">3 bottlenecks</span> before they reached production.</li>
-          <li><strong>Secure API Development</strong> &mdash; FastAPI endpoints with role- and group-based access control across two personas; held up through a full security review with no access issues found.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="station-head">
-      <p class="sec-label fi">Work</p>
-      <h2 class="sec-title fi d1">Projects</h2>
-      <p class="sec-sub fi d2">Proof-of-concept to production — systems that actually work at scale.</p>
-    </div>
-
-    <div class="proj-grid">
-      <div class="proj-card fi">
-        <div class="proj-num">01</div>
-        <div class="proj-title">AI Resume Search</div>
-        <div class="proj-sub">Candidate Matching Engine</div>
-        <p class="proj-desc">Multi-stage retrieval pipeline where LangGraph routes queries through Pinecone vector search, then applies structured MongoDB filters on experience, skills, and location before surfacing results. Tested against 10K+ resumes with consistently strong top-3 matches.</p>
-        <div class="proj-metrics"><span class="pm">10K+ resumes</span><span class="pm">strong top-3</span></div>
-        <div class="tags"><span class="tag">LangGraph</span><span class="tag">Pinecone</span><span class="tag">MongoDB</span><span class="tag">Python</span><span class="tag">LLMs</span></div>
-      </div>
-
-      <div class="proj-card fi d1">
-        <div class="proj-num">02</div>
-        <div class="proj-title">Agentic-Map</div>
-        <div class="proj-sub">Multi-Agent Trip Resolver</div>
-        <p class="proj-desc">Multi-agent LangGraph trip planner that resolves vague natural-language stops (e.g. "grab a coffee on the way"). A supervisor graph runs parallel Scout agents per stop alongside a Navigator (time budget) and Concierge (weather/ETA), with human-in-the-loop approval and checkpointed, resumable sessions.</p>
-        <div class="proj-metrics"><span class="pm">Multi-agent graph</span><span class="pm">Human-in-the-loop</span></div>
-        <div class="tags"><span class="tag">LangGraph</span><span class="tag">Claude</span><span class="tag">Google Maps Routes v2</span><span class="tag">Open-Meteo</span><span class="tag">Python</span></div>
-      </div>
-
-      <div class="proj-card fi d2">
-        <div class="proj-num">03</div>
-        <div class="proj-title">AgentTrace</div>
-        <div class="proj-sub">LLM Agent Observability Dashboard</div>
-        <p class="proj-desc">Built because LangSmith doesn't cover self-hosted pipelines well. Hooks into LangGraph callbacks to capture node execution times, tool-call sequences, and per-step token usage, storing trace history in PostgreSQL. A React frontend renders live traces as collapsible execution trees via WebSocket push; Prometheus tracks latency and cost.</p>
-        <div class="proj-metrics"><span class="pm">Live trace trees</span><span class="pm">Latency + cost</span></div>
-        <div class="tags"><span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">WebSockets</span><span class="tag">React</span><span class="tag">Redis</span><span class="tag">PostgreSQL</span><span class="tag">Prometheus</span></div>
-      </div>
-
-      <div class="proj-card fi d3">
-        <div class="proj-num">04</div>
-        <div class="proj-title">DevTools MCP Server</div>
-        <div class="proj-sub">GitHub & CI Integration for Claude</div>
-        <p class="proj-desc">MCP server that exposes GitHub PRs, CI run logs, and issue trackers to Claude via typed tool schemas. Lets engineers run natural-language code reviews and draft release notes without context-switching out of the conversation.</p>
-        <div class="proj-metrics"><span class="pm">Typed tool schemas</span><span class="pm">NL code review</span></div>
-        <div class="tags"><span class="tag">Python MCP SDK</span><span class="tag">Claude API</span><span class="tag">GitHub REST API</span><span class="tag">FastAPI</span><span class="tag">Docker</span></div>
-      </div>
-
-      <div class="proj-card fi">
-        <div class="proj-num">05</div>
-        <div class="proj-title">HouseDiffusion</div>
-        <div class="proj-sub">Generative Floor Plan Generator</div>
-        <p class="proj-desc">Fine-tuned a Diffusion + Transformer model for room-level layout synthesis, taking floor plan generation from hours of manual drafting to under 5 seconds. Users work through a React drag-and-drop canvas; FastAPI handles model inference on the backend.</p>
-        <div class="proj-metrics"><span class="pm">&lt;5s generation</span><span class="pm">vs. hours manually</span></div>
-        <div class="tags"><span class="tag">PyTorch</span><span class="tag">Diffusion Models</span><span class="tag">Transformers</span><span class="tag">React Flow</span><span class="tag">FastAPI</span><span class="tag">Python</span></div>
-      </div>
-
-      <div class="proj-card fi d1">
-        <div class="proj-num">06</div>
-        <div class="proj-title">Assignment Reminder</div>
-        <div class="proj-sub">Automated LMS Tracker</div>
-        <p class="proj-desc">Selenium-based deadline tracker that fires WhatsApp reminders at 10, 3, and 1 day out. Deployed on EC2 with GitHub Actions CI/CD. Picked up by 30+ students in its first semester without any promotion.</p>
-        <div class="proj-metrics"><span class="pm">30+ students</span><span class="pm">10/3/1-day alerts</span></div>
-        <div class="tags"><span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">AWS EC2</span><span class="tag">GitHub Actions</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="station-head">
-      <p class="sec-label fi">Stack</p>
-      <h2 class="sec-title fi d1">Skills</h2>
-      <p class="sec-sub fi d2">Breadth across the stack, depth where it counts.</p>
-    </div>
-    <div class="sk-grid">
-      <div class="sk-group fi">
-        <div class="sk-head">AI / ML</div>
-        <div class="sk-pills">
-          <span class="sk-pill">LangGraph</span><span class="sk-pill">LLMs</span><span class="sk-pill">RAG</span>
-          <span class="sk-pill">AI Agents</span><span class="sk-pill">Atlas Vector Search</span><span class="sk-pill">Voyage</span>
-          <span class="sk-pill">Prompt Engineering</span><span class="sk-pill">Claude API</span><span class="sk-pill">MCP</span>
-        </div>
-      </div>
-      <div class="sk-group fi d1">
-        <div class="sk-head">Languages & Backend</div>
-        <div class="sk-pills">
-          <span class="sk-pill">Python</span><span class="sk-pill">FastAPI</span><span class="sk-pill">MongoDB</span>
-          <span class="sk-pill">PostgreSQL</span><span class="sk-pill">GraphQL</span><span class="sk-pill">REST APIs</span>
-          <span class="sk-pill">Bash</span><span class="sk-pill">NoSQL</span>
-        </div>
-      </div>
-      <div class="sk-group fi d2">
-        <div class="sk-head">Frontend</div>
-        <div class="sk-pills">
-          <span class="sk-pill">React</span><span class="sk-pill">TypeScript</span><span class="sk-pill">Next.js</span>
-          <span class="sk-pill">Vue.js</span><span class="sk-pill">Tailwind CSS</span><span class="sk-pill">Bootstrap</span>
-          <span class="sk-pill">JavaScript</span>
-        </div>
-      </div>
-      <div class="sk-group fi">
-        <div class="sk-head">AWS</div>
-        <div class="sk-pills">
-          <span class="sk-pill">EC2</span><span class="sk-pill">S3</span><span class="sk-pill">SQS</span>
-          <span class="sk-pill">SES</span><span class="sk-pill">Lambda</span><span class="sk-pill">OpenSearch</span>
-          <span class="sk-pill">ECS</span><span class="sk-pill">IAM</span><span class="sk-pill">Amplify</span>
-          <span class="sk-pill">SageMaker</span>
-        </div>
-      </div>
-      <div class="sk-group fi d1">
-        <div class="sk-head">DevOps & Cloud</div>
-        <div class="sk-pills">
-          <span class="sk-pill">Kubernetes</span><span class="sk-pill">Docker</span><span class="sk-pill">Helm</span>
-          <span class="sk-pill">Kops</span><span class="sk-pill">Grafana</span><span class="sk-pill">Prometheus</span>
-          <span class="sk-pill">GitHub CI/CD</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="contact-card fi">
-      <p class="sec-label" style="justify-content:center;display:flex;">Contact</p>
-      <h2 class="sec-title" style="margin-bottom:0.5rem;">Let's Build Something</h2>
-      <p style="color:var(--muted);font-size:0.93rem;line-height:1.75;">Open to full-stack and AI engineering roles. I love hard problems and teams that actually ship.</p>
-      <a href="mailto:s.hameedakmal@gmail.com" class="contact-email">s.hameedakmal@gmail.com</a>
-      <div class="contact-links">
-        <a href="https://linkedin.com/in/akmalhameed" target="_blank" class="soc-link">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-        <a href="https://github.com/sakmalh" target="_blank" class="soc-link">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          GitHub
-        </a>
-        <a href="tel:2039974545" class="soc-link">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.6 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.11 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.18 8.84a16 16 0 006 6l1.2-1.2a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          203-997-4545
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>Built by Akmal · 2026 · Queens, New York</footer>
-<p class="world-credit">Built by Akmal · 2026 · Queens, New York</p>
-<div class="world-rail" role="navigation" aria-label="Jump to station"></div>
-
-<script type="module" src="/src/main.js"></script>
 </body>
 </html>
