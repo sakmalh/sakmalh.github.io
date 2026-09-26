@@ -1,4 +1,4 @@
-// Smoke test for the README-style site.
+// Smoke test for the "Match me" site.
 // Builds are served by `vite preview`; this script spawns it, runs the checks
 // against the real built output, and exits non-zero on any failure.
 //
@@ -68,39 +68,48 @@ const browser = await chromium.launch({ channel: 'chrome' });
 
   check('title names Akmal', /Akmal Hameed/.test(await page.title()));
   check('h1 is the name', (await page.locator('h1').first().textContent()).trim() === 'Akmal Hameed');
-  check('open-to-roles badge visible', await page.locator('.badge', { hasText: 'open to roles' }).isVisible());
-  check('badges present', (await page.locator('.badge').count()) >= 4);
+  check('open-to-roles status visible', await page.locator('.bar-status', { hasText: 'open to roles' }).isVisible());
+  check('"right now" card visible', await page.locator('.rnow').isVisible());
 
-  // Every TOC link must resolve to a real section id.
-  const tocTargets = await page.$$eval('.toc a', (as) => as.map((a) => a.getAttribute('href')));
+  // Every in-page nav link must resolve to a real section id.
+  const navTargets = await page.$$eval('.bar-nav a', (as) => as.map((a) => a.getAttribute('href')));
   const missing = [];
-  for (const href of tocTargets) {
+  for (const href of navTargets) {
     if (!(await page.locator(href).count())) missing.push(href);
   }
-  check('all TOC links resolve', tocTargets.length >= 6 && missing.length === 0, missing.join(', ') || `${tocTargets.length} links`);
+  check('all nav links resolve', navTargets.length >= 4 && missing.length === 0, missing.join(', ') || `${navTargets.length} links`);
 
-  for (const id of ['about', 'systems', 'experience', 'projects', 'skills', 'education', 'contact']) {
+  for (const id of ['experience', 'education', 'skills', 'work', 'contact']) {
     check(`section #${id} exists`, (await page.locator(`#${id}`).count()) === 1);
   }
 
-  check('two system diagrams render', (await page.locator('pre.diagram').count()) === 2);
-  check('three roles listed', (await page.locator('#experience ~ h3, h3#swe, h3#junior-swe, h3#intern').count()) >= 3);
-  check('six projects listed', (await page.locator('.tags').count()) === 6);
-  check('skills table has 5 areas', (await page.locator('tbody tr').count()) === 5);
+  check('four facts in the strip', (await page.locator('.fact').count()) === 4);
+  const years = (await page.locator('[data-years]').textContent()).trim();
+  check('years of experience computed', /^\d+\+ yrs$/.test(years) && parseInt(years) >= 4, years);
+  check('three roles listed', (await page.locator('.role').count()) === 3);
+  const durs = await page.$$eval('.role [data-dur]', (els) => els.map((e) => e.textContent.trim()));
+  check('role durations rendered', durs.length === 3 && durs.every((d) => /\d+ (yrs?|mo)/.test(d)), durs.join(', '));
+  check('two education entries', (await page.locator('.edu').count()) === 2);
+  check('First Class Honours shown', await page.locator('.edu', { hasText: 'First Class Honours' }).isVisible());
+  check('fourteen work cards', (await page.locator('.card').count()) === 14);
+
+  // No skill chip may claim a skill that no piece of work backs up.
+  const counts = await page.$$eval('.chips button .n', (els) => els.map((e) => Number(e.textContent)));
+  check('every skill has evidence', counts.length >= 20 && counts.every((n) => n > 0), `${counts.length} chips`);
 
   check('mailto link present', (await page.locator('a[href^="mailto:s.hameedakmal"]').count()) >= 1);
   check('phone link present', (await page.locator('a[href^="tel:"]').count()) >= 1);
-  const resumeLinks = await page.locator('a[href$=".pdf"]').count();
-  check('résumé links present', resumeLinks >= 2, `${resumeLinks} links`);
-  const pdfStatus = (await page.request.get(URL + 'Akmal_Hameed.pdf')).status();
-  check('résumé PDF is served', pdfStatus === 200, `HTTP ${pdfStatus}`);
+  const cv = await page.$$eval('a[href$=".pdf"]', (as) => as.map((a) => a.hasAttribute('download')));
+  check('résumé download links (bar, card, footer)', cv.length >= 3 && cv.every(Boolean), `${cv.length} links`);
+  const pdf = await page.request.get(URL + 'Akmal_Hameed.pdf');
+  check('résumé PDF is served', pdf.status() === 200 && /pdf/.test(pdf.headers()['content-type'] || ''), `HTTP ${pdf.status()}`);
 
   check('no console errors', errors.length === 0, errors.slice(0, 3).join(' | '));
-  await page.screenshot({ path: `${OUT}/desktop-light.png`, fullPage: false });
+  await page.screenshot({ path: `${OUT}/desktop.png`, fullPage: false });
   await ctx.close();
 }
 
-// ── 2. readability: type size, no sideways scrolling ───────────────────────
+// ── 2. readability: type size, line length, no sideways scrolling ──────────
 {
   const { ctx, page } = await newCtx(browser);
   await page.goto(URL, { waitUntil: 'networkidle' });
@@ -109,10 +118,10 @@ const browser = await chromium.launch({ channel: 'chrome' });
   check('body text ≥ 16px', fontSize >= 16, `${fontSize}px`);
 
   const measure = await page.evaluate(() => {
-    const p = document.querySelector('.markdown-body > p');
+    const p = document.querySelector('.lede');
     return { width: p.getBoundingClientRect().width, fontSize: parseFloat(getComputedStyle(p).fontSize) };
   });
-  // ~65–95 chars per line is the readable band; ch ≈ 0.5em for this stack.
+  // ~45–95 chars per line is the readable band; ch ≈ 0.5em for this stack.
   const chars = measure.width / (measure.fontSize * 0.5);
   check('measure in readable band', chars > 45 && chars < 110, `≈${Math.round(chars)} chars/line`);
 
@@ -128,15 +137,34 @@ const browser = await chromium.launch({ channel: 'chrome' });
 
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   check('no horizontal overflow @375', overflow <= 0, `${overflow}px`);
-  check('résumé button visible on mobile', await page.locator('.gh-btn-primary').isVisible());
+  check('résumé button visible on mobile', await page.locator('.bar-cv').isVisible());
   check('no console errors on mobile', errors.length === 0, errors.slice(0, 3).join(' | '));
-  await page.screenshot({ path: `${OUT}/mobile-light.png`, fullPage: false });
+  await page.screenshot({ path: `${OUT}/mobile.png`, fullPage: false });
   await ctx.close();
 }
 
-// ── 4. dark scheme ─────────────────────────────────────────────────────────
+// ── 3b. skill filter highlights the right work ─────────────────────────────
 {
-  const { ctx, page } = await newCtx(browser, { colorScheme: 'dark' });
+  const { ctx, page } = await newCtx(browser);
+  await page.goto(URL, { waitUntil: 'networkidle' });
+
+  const chip = page.locator('.chips button[data-s="LangGraph"]');
+  const expected = Number(await chip.locator('.n').textContent());
+  await chip.click();
+  check('chip becomes pressed', (await chip.getAttribute('aria-pressed')) === 'true');
+  const hits = await page.locator('.card.hit').count();
+  const dims = await page.locator('.card.dim').count();
+  check('filter highlights matching cards', hits === expected && hits > 0, `${hits} hit, expected ${expected}`);
+  check('filter dims the rest', hits + dims === 14, `${dims} dimmed`);
+  check('status names the skill', /LangGraph/.test(await page.locator('#status').textContent()));
+  await page.locator('#clear').click();
+  check('show all clears the filter', (await page.locator('.card.dim').count()) === 0);
+  await ctx.close();
+}
+
+// ── 4. dark on any OS theme (the design is dark-only) ─────────────────────────────────────────────────────────
+{
+  const { ctx, page } = await newCtx(browser, { colorScheme: 'light' });
   await page.goto(URL, { waitUntil: 'networkidle' });
 
   const { bg, ink } = await page.evaluate(() => ({
@@ -149,7 +177,7 @@ const browser = await chromium.launch({ channel: 'chrome' });
   };
   check('dark: background is dark', lum(bg) < 0.2, bg);
   check('dark: text is light', lum(ink) > 0.7, ink);
-  await page.screenshot({ path: `${OUT}/desktop-dark.png`, fullPage: false });
+  await page.screenshot({ path: `${OUT}/desktop-dark-os.png`, fullPage: false });
   await ctx.close();
 }
 
