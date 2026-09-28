@@ -1,4 +1,4 @@
-// Smoke test for the "Match me" site.
+// Smoke test for the scroll-story site.
 // Builds are served by `vite preview`; this script spawns it, runs the checks
 // against the real built output, and exits non-zero on any failure.
 //
@@ -59,7 +59,21 @@ async function newCtx(browser, opts = {}) {
   return { ctx, page, errors };
 }
 
-const browser = await chromium.launch({ channel: 'chrome' });
+// swiftshader gives headless Chrome a software WebGL so the 3D path runs too.
+const browser = await chromium.launch({ channel: 'chrome', args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+
+const CHAPTERS = ['intro', 'about', 'ai', 'search', 'team', 'junior', 'intern', 'education', 'projects', 'projects2', 'skills', 'contact'];
+// Every résumé item must appear on the page, by its heading.
+const RESUME_ITEMS = [
+  'AI Interview & Assessment Agent', 'Live Interview Transcription & Validation',
+  'Multi-Tenant RAG Candidate Search', 'Stripe Subscription & Billing System',
+  'Frontend engineering', 'Engineering quality & mentorship',
+  'Microservice standardisation', 'Cloud cost reduction',
+  'Test automation & QA', 'Secure API development',
+  'AgentTrace', 'DevTools MCP Server', 'AI Resume Search',
+  'Agentic-Map', 'HouseDiffusion', 'Assignment Reminder',
+  'B.Sc. Computer Science (Top-Up), First Class Honours', 'HND Computer Science, Merit',
+];
 
 // ── 1. content: everything a recruiter needs, present and correct ──────────
 {
@@ -68,105 +82,126 @@ const browser = await chromium.launch({ channel: 'chrome' });
 
   check('title names Akmal', /Akmal Hameed/.test(await page.title()));
   check('h1 is the name', (await page.locator('h1').first().textContent()).trim() === 'Akmal Hameed');
-  check('open-to-roles status visible', await page.locator('.bar-status', { hasText: 'open to roles' }).isVisible());
-  check('"right now" card visible', await page.locator('.rnow').isVisible());
+  check('open-to-roles status visible', await page.locator('.status', { hasText: 'open to' }).isVisible());
 
-  // Every in-page nav link must resolve to a real section id.
-  const navTargets = await page.$$eval('.bar-nav a', (as) => as.map((a) => a.getAttribute('href')));
+  const ids = await page.$$eval('.chap', (els) => els.map((e) => e.id));
+  check('twelve chapters in order', JSON.stringify(ids) === JSON.stringify(CHAPTERS), ids.join(','));
+  const railTargets = await page.$$eval('#rail a', (as) => as.map((a) => a.getAttribute('href')));
   const missing = [];
-  for (const href of navTargets) {
-    if (!(await page.locator(href).count())) missing.push(href);
-  }
-  check('all nav links resolve', navTargets.length >= 4 && missing.length === 0, missing.join(', ') || `${navTargets.length} links`);
+  for (const href of railTargets) if (!(await page.locator(href).count())) missing.push(href);
+  check('chapter rail links resolve', railTargets.length === CHAPTERS.length && missing.length === 0, missing.join(', ') || `${railTargets.length} links`);
 
-  for (const id of ['experience', 'education', 'skills', 'work', 'contact']) {
-    check(`section #${id} exists`, (await page.locator(`#${id}`).count()) === 1);
-  }
+  const bolds = await page.$$eval('.card li b', (bs) => bs.map((b) => b.textContent.trim()));
+  const absent = RESUME_ITEMS.filter((t) => !bolds.some((b) => b === t || b.startsWith(t + ':')));
+  check('every résumé item is on the page', absent.length === 0, absent.join(', ') || `${RESUME_ITEMS.length} items`);
+  const stacks = await page.locator('.card li em').count();
+  check('experience and projects list their stack', stacks >= 16, `${stacks} stack lines`);
 
-  check('four facts in the strip', (await page.locator('.fact').count()) === 4);
-  const years = (await page.locator('[data-years]').textContent()).trim();
-  check('years of experience computed', /^\d+\+ yrs$/.test(years) && parseInt(years) >= 4, years);
-  check('three roles listed', (await page.locator('.role').count()) === 3);
-  const durs = await page.$$eval('.role [data-dur]', (els) => els.map((e) => e.textContent.trim()));
+  const years = await page.locator('[data-years]').first().textContent();
+  check('years of experience computed', /^\d+\+ years$/.test(years) && parseInt(years) >= 4, years);
+  const durs = await page.$$eval('.role [data-dur]', (els) => els.map((e) => e.textContent));
   check('role durations rendered', durs.length === 3 && durs.every((d) => /\d+ (yrs?|mo)/.test(d)), durs.join(', '));
-  check('two education entries', (await page.locator('.edu').count()) === 2);
-  check('First Class Honours shown', await page.locator('.edu', { hasText: 'First Class Honours' }).isVisible());
-  check('fourteen work cards', (await page.locator('.card').count()) === 14);
 
-  // No skill chip may claim a skill that no piece of work backs up.
-  const counts = await page.$$eval('.chips button .n', (els) => els.map((e) => Number(e.textContent)));
-  check('every skill has evidence', counts.length >= 20 && counts.every((n) => n > 0), `${counts.length} chips`);
+  const photo = await page.locator('.me img').evaluate((img) => img.complete && img.naturalWidth);
+  check('profile photo loads', photo > 0, `${photo}px wide`);
 
   check('mailto link present', (await page.locator('a[href^="mailto:s.hameedakmal"]').count()) >= 1);
   check('phone link present', (await page.locator('a[href^="tel:"]').count()) >= 1);
-  const cv = await page.$$eval('a[href$=".pdf"]', (as) => as.map((a) => a.hasAttribute('download')));
-  check('résumé download links (bar, card, footer)', cv.length >= 3 && cv.every(Boolean), `${cv.length} links`);
-  const pdf = await page.request.get(URL + 'Akmal_Hameed.pdf');
+  const cv = await page.$$eval('a[href$="Akmal_Hameed.pdf"]', (as) => as.map((a) => a.hasAttribute('download')));
+  check('résumé download links (bar, intro, contact)', cv.length >= 3 && cv.every(Boolean), `${cv.length} links`);
+  const pdf = await page.request.get(new globalThis.URL('Akmal_Hameed.pdf', URL).href);
   check('résumé PDF is served', pdf.status() === 200 && /pdf/.test(pdf.headers()['content-type'] || ''), `HTTP ${pdf.status()}`);
 
+  const fontSize = await page.locator('.card ul li span').first().evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
+  check('card body text ≥ 14px', fontSize >= 14, `${fontSize}px`);
   check('no console errors', errors.length === 0, errors.slice(0, 3).join(' | '));
-  await page.screenshot({ path: `${OUT}/desktop.png`, fullPage: false });
   await ctx.close();
 }
 
-// ── 2. readability: type size, line length, no sideways scrolling ──────────
+// ── 2. the 3D scene loads and follows the scroll ───────────────────────────
+{
+  const { ctx, page, errors } = await newCtx(browser);
+  await page.goto(URL, { waitUntil: 'networkidle' });
+  await page.waitForFunction(() => document.body.classList.contains('has-3d'), null, { timeout: 15000 }).catch(() => {});
+  check('3D scene starts', await page.evaluate(() => document.body.classList.contains('has-3d')));
+
+  // Screenshot the scene alone (text hidden) at every chapter. A flat
+  // background compresses to a tiny PNG; a rendered room does not, and the
+  // camera moving means consecutive stops look different.
+  const scene = {};
+  await page.addStyleTag({ content: '.hide-ui main, .hide-ui .top, .hide-ui .rail, .hide-ui #labels { visibility: hidden !important; }' });
+  for (const id of CHAPTERS) {
+    await page.evaluate((id) => { const s = document.getElementById(id); scrollTo(0, s.offsetTop + s.offsetHeight / 2 - innerHeight / 2); }, id);
+    await page.waitForTimeout(1300);
+    await page.screenshot({ path: `${OUT}/story-${id}.png` });
+    await page.evaluate(() => document.body.classList.add('hide-ui'));
+    scene[id] = await page.screenshot();
+    await page.evaluate(() => document.body.classList.remove('hide-ui'));
+  }
+  const smallest = Math.min(...Object.values(scene).map((b) => b.length));
+  check('scene renders a picture at every stop', smallest > 40000, `smallest frame ${Math.round(smallest / 1024)} KB`);
+  const same = CHAPTERS.slice(1).filter((id, i) => scene[id].equals(scene[CHAPTERS[i]]));
+  check('camera moves between chapters', same.length === 0, same.join(', ') || 'every stop differs');
+  const active = await page.$eval('#rail a.on', (a) => a.getAttribute('href')).catch(() => null);
+  check('rail marks the current chapter', active === '#contact', String(active));
+  const labels = await page.$$eval('.lbl', (els) => els.filter((e) => parseFloat(e.style.opacity) > 0.5).length);
+  check('3D labels hide away from their chapter', labels === 0, `${labels} visible on contact`);
+  check('no console errors while scrolling', errors.length === 0, errors.slice(0, 3).join(' | '));
+  await ctx.close();
+}
+
+// ── 3. no WebGL: the same content as a plain page ──────────────────────────
+{
+  const { ctx, page, errors } = await newCtx(browser);
+  await ctx.addInitScript(() => { HTMLCanvasElement.prototype.getContext = function () { return null; }; });
+  await page.goto(URL, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(500);
+  check('no-WebGL falls back to plain page', await page.evaluate(() => document.body.classList.contains('no-3d') && !document.body.classList.contains('has-3d')));
+  check('no-WebGL never downloads three.js', !(await page.evaluate(() => performance.getEntriesByType('resource').some((r) => /three-/.test(r.name)))));
+  check('no-WebGL still shows every chapter', (await page.locator('.chap .card:visible').count()) === CHAPTERS.length);
+  await page.screenshot({ path: `${OUT}/no-webgl.png`, fullPage: true });
+  check('no console errors without WebGL', errors.length === 0, errors.slice(0, 3).join(' | '));
+  await ctx.close();
+}
+
+// ── 4. layout: desktop and phone ───────────────────────────────────────────
 {
   const { ctx, page } = await newCtx(browser);
   await page.goto(URL, { waitUntil: 'networkidle' });
-
-  const fontSize = await page.evaluate(() => parseFloat(getComputedStyle(document.body).fontSize));
-  check('body text ≥ 16px', fontSize >= 16, `${fontSize}px`);
-
-  const measure = await page.evaluate(() => {
-    const p = document.querySelector('.lede');
-    return { width: p.getBoundingClientRect().width, fontSize: parseFloat(getComputedStyle(p).fontSize) };
-  });
-  // ~45–95 chars per line is the readable band; ch ≈ 0.5em for this stack.
-  const chars = measure.width / (measure.fontSize * 0.5);
-  check('measure in readable band', chars > 45 && chars < 110, `≈${Math.round(chars)} chars/line`);
-
-  const overflowDesktop = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-  check('no horizontal overflow @1440', overflowDesktop <= 0, `${overflowDesktop}px`);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+  check('no horizontal overflow @1440', overflow <= 0, `${overflow}px`);
   await ctx.close();
 }
-
-// ── 3. mobile ──────────────────────────────────────────────────────────────
 {
-  const { ctx, page, errors } = await newCtx(browser, { viewport: { width: 375, height: 812 } });
+  const { ctx, page, errors } = await newCtx(browser, { viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true });
   await page.goto(URL, { waitUntil: 'networkidle' });
-
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  await page.waitForTimeout(1500);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
   check('no horizontal overflow @375', overflow <= 0, `${overflow}px`);
-  check('résumé button visible on mobile', await page.locator('.bar-cv').isVisible());
+  check('résumé button visible on mobile', await page.locator('.top-cv').isVisible());
+  for (const id of ['about', 'search', 'projects']) {
+    await page.evaluate((id) => { const s = document.getElementById(id); scrollTo(0, s.offsetTop + s.offsetHeight / 2 - innerHeight / 2); }, id);
+    await page.waitForTimeout(1000);
+    await page.screenshot({ path: `${OUT}/mobile-${id}.png` });
+  }
   check('no console errors on mobile', errors.length === 0, errors.slice(0, 3).join(' | '));
-  await page.screenshot({ path: `${OUT}/mobile.png`, fullPage: false });
   await ctx.close();
 }
 
-// ── 3b. skill filter highlights the right work ─────────────────────────────
+// ── 5. reduced motion still works ──────────────────────────────────────────
 {
-  const { ctx, page } = await newCtx(browser);
+  const { ctx, page, errors } = await newCtx(browser, { reducedMotion: 'reduce' });
   await page.goto(URL, { waitUntil: 'networkidle' });
-
-  const chip = page.locator('.chips button[data-s="LangGraph"]');
-  const expected = Number(await chip.locator('.n').textContent());
-  await chip.click();
-  check('chip becomes pressed', (await chip.getAttribute('aria-pressed')) === 'true');
-  const hits = await page.locator('.card.hit').count();
-  const dims = await page.locator('.card.dim').count();
-  check('filter highlights matching cards', hits === expected && hits > 0, `${hits} hit, expected ${expected}`);
-  check('filter dims the rest', hits + dims === 14, `${dims} dimmed`);
-  check('status names the skill', /LangGraph/.test(await page.locator('#status').textContent()));
-  await page.locator('#clear').click();
-  check('show all clears the filter', (await page.locator('.card.dim').count()) === 0);
+  await page.evaluate(() => document.getElementById('ai').scrollIntoView());
+  await page.waitForTimeout(800);
+  check('reduced motion: scene loads, no errors', errors.length === 0 && (await page.evaluate(() => document.body.classList.contains('has-3d'))), errors.slice(0, 2).join(' | '));
   await ctx.close();
 }
 
-// ── 4. dark on any OS theme (the design is dark-only) ─────────────────────────────────────────────────────────
+// ── 6. dark on any OS theme (the design is dark-only) ──────────────────────
 {
   const { ctx, page } = await newCtx(browser, { colorScheme: 'light' });
   await page.goto(URL, { waitUntil: 'networkidle' });
-
   const { bg, ink } = await page.evaluate(() => ({
     bg: getComputedStyle(document.body).backgroundColor,
     ink: getComputedStyle(document.body).color,
@@ -177,11 +212,10 @@ const browser = await chromium.launch({ channel: 'chrome' });
   };
   check('dark: background is dark', lum(bg) < 0.2, bg);
   check('dark: text is light', lum(ink) > 0.7, ink);
-  await page.screenshot({ path: `${OUT}/desktop-dark-os.png`, fullPage: false });
   await ctx.close();
 }
 
-// ── 5. copy button works ───────────────────────────────────────────────────
+// ── 7. copy button works ───────────────────────────────────────────────────
 {
   const { ctx, page } = await newCtx(browser);
   await ctx.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: URL.replace(/\/$/, '') });

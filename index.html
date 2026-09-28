@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Akmal Hameed · Full-Stack Engineer, Backend &amp; AI · Queens, NY</title>
-  <meta name="description" content="Full-stack engineer who leans backend. Four years building production AI systems: a LangGraph interview agent, candidate search over 100,000+ profiles in under a second, and Stripe billing.">
+  <meta name="description" content="Full-stack engineer who leans backend. Building production AI systems since 2022: a LangGraph interview agent, candidate search over 100,000+ profiles in under a second, and Stripe billing.">
+  <meta property="og:title" content="Akmal Hameed · Full-Stack Engineer, Backend &amp; AI">
+  <meta property="og:image" content="./akmal.jpg">
   <meta name="color-scheme" content="dark">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,188 +16,164 @@
 </head>
 <body>
 
-<header class="bar">
-  <div class="bar-in">
-    <a class="bar-name" href="#top">Akmal Hameed</a>
-    <span class="bar-status"><span class="pulse" aria-hidden="true"></span>open to roles</span>
-    <nav class="bar-nav" aria-label="Sections">
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a class="btn btn-pri bar-cv" href="./Akmal_Hameed.pdf" download>Résumé <span class="btn-note">PDF</span></a>
-  </div>
+<canvas id="scene" aria-hidden="true"></canvas>
+<div id="labels" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="brand" href="#intro">Akmal Hameed</a>
+  <span class="status"><span class="pulse" aria-hidden="true"></span>open to full-stack &amp; AI roles</span>
+  <a class="btn pri top-cv" href="./Akmal_Hameed.pdf" download>Résumé <span class="btn-note">PDF</span></a>
 </header>
 
-<main id="top" class="wrap">
+<nav class="rail" id="rail" aria-label="Chapters"></nav>
 
-  <section class="hero">
-    <div>
-      <p class="avail"><span class="pulse" aria-hidden="true"></span>Open to full-stack &amp; AI engineering roles</p>
-      <h1>Akmal Hameed</h1>
-      <p class="lede">Full-stack engineer who leans backend, in Queens, NY. <span data-years-text>Four years</span> building production AI systems at HiAcuity: an interview agent, a search over 100,000+ profiles, and subscription billing. Pick a skill below to see exactly where I've used it.</p>
-      <div class="links">
-        <a href="mailto:s.hameedakmal@gmail.com">s.hameedakmal@gmail.com</a>
-        <a href="https://github.com/sakmalh" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://linkedin.com/in/akmalhameed" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-
-    <aside class="rnow" aria-labelledby="rnow-h">
-      <h2 class="rnow-h" id="rnow-h"><span class="pulse" aria-hidden="true"></span>Right now</h2>
-      <dl>
-        <dt>Building</dt><dd>The AI interview agent and the candidate search at HiAcuity</dd>
-        <dt>Looking for</dt><dd>Full-stack or AI engineering roles, backend-leaning</dd>
-        <dt>Based in</dt><dd>Queens, New York</dd>
-        <dt>Contact</dt><dd>Email is the fastest way to reach me</dd>
-      </dl>
-      <div class="rnow-cta">
-        <a class="btn btn-pri" href="./Akmal_Hameed.pdf" download>Download résumé <span class="btn-note">PDF</span></a>
-        <button type="button" class="btn copy-btn" data-copy="s.hameedakmal@gmail.com">Copy email</button>
-      </div>
-    </aside>
-  </section>
-
-  <section class="facts" aria-label="At a glance">
-    <div class="fact"><div class="fact-v" data-years>4+ yrs</div><div class="fact-l">professional experience<br>(Sep 2022 – now)</div></div>
-    <div class="fact"><div class="fact-v">3 roles</div><div class="fact-l">intern → engineer at one company, 2 promotions</div></div>
-    <div class="fact"><div class="fact-v">B.Sc. CS</div><div class="fact-l">First Class Honours, Staffordshire University</div></div>
-    <div class="fact"><div class="fact-v">Queens, NY</div><div class="fact-l">open to full-stack &amp; AI roles</div></div>
-  </section>
-
-  <div class="xp2">
-    <section id="experience" aria-labelledby="experience-h">
-      <h2 class="label" id="experience-h">Experience</h2>
-      <div class="tl">
-        <div class="tr role" data-start="2024-09">
-          <div class="td">Sep 2024 –<br><span class="now">now</span><span class="dur" data-dur>2 yrs</span></div>
-          <div><h3>Software Engineer</h3><p>HiAcuity · recruitment software</p><p class="sm">Owns the AI interview agent, candidate search and billing. Sets the team's code review standard.</p></div>
-        </div>
-        <div class="tr role" data-start="2023-03" data-end="2024-09">
-          <div class="td">Mar 2023 –<br>Sep 2024<span class="dur" data-dur>1 yr 6 mo</span></div>
-          <div><h3>Junior Software Engineer</h3><p>HiAcuity · recruitment software</p><p class="sm">Standardised 6 microservices and cut cloud costs.</p></div>
-        </div>
-        <div class="tr role" data-start="2022-09" data-end="2023-03">
-          <div class="td">Sep 2022 –<br>Mar 2023<span class="dur" data-dur>6 mo</span></div>
-          <div><h3>Software Engineering Intern</h3><p>HiAcuity · recruitment software</p><p class="sm">Test automation, load testing and secure APIs.</p></div>
-        </div>
+  <main id="top">
+    <section class="chap" id="intro" data-side="left" data-name="Intro" data-c="#e6e9ef">
+      <div class="card hero-card">
+        <p class="eyebrow" style="--c:var(--be)">Full-stack engineer · backend &amp; AI · Queens, NY</p>
+        <h1>Akmal Hameed</h1>
+        <p class="lede">I build production AI systems: an interview agent, a search over 100,000+ profiles, and the billing behind them. Scroll to walk through every role and project.</p>
+        <div class="links"><a href="mailto:s.hameedakmal@gmail.com">s.hameedakmal@gmail.com</a><a href="https://github.com/sakmalh" target="_blank" rel="noopener">GitHub</a><a href="https://linkedin.com/in/akmalhameed" target="_blank" rel="noopener">LinkedIn</a></div>
+        <div class="btns"><a class="btn pri" href="./Akmal_Hameed.pdf" download>Download résumé <span class="btn-note">PDF</span></a></div>
+        <span class="scroll-hint"><i aria-hidden="true"></i>scroll</span>
       </div>
     </section>
 
-    <section id="education" aria-labelledby="education-h">
-      <h2 class="label" id="education-h">Education</h2>
-      <div class="tl">
-        <div class="tr edu">
-          <div class="td">2023 – 2024</div>
-          <div><h3>B.Sc. Computer Science (Top-Up)</h3><p><b class="fc">First Class Honours</b> · Staffordshire University, taught at APIIT Sri Lanka</p><p class="sm">Completed alongside a full-time engineering role.</p></div>
+    <section class="chap" id="about" data-side="right" data-name="About" data-c="#93c5fd">
+      <div class="card" style="--c:var(--acc)">
+        <div class="me">
+          <img src="./akmal.jpg" alt="Akmal Hameed" width="88" height="88">
+          <div><p class="eyebrow">About</p><p class="me-sub"><span data-years>4+ years</span> at HiAcuity · Queens, NY</p></div>
         </div>
-        <div class="tr edu">
-          <div class="td">2021 – 2022</div>
-          <div><h3>HND Computer Science</h3><p>Merit · Pearson, taught at BCAS Sri Lanka</p></div>
+        <h2>Backend-leaning full-stack engineer, shipping AI in production since 2022</h2>
+        <p>At HiAcuity, a recruitment SaaS startup, I've owned an AI interview and assessment engine, a multi-tenant RAG candidate search, a tiered Stripe billing platform and a self-hosted agent observability dashboard. Python and FastAPI on the backend, React on the front, Kubernetes and AWS in between. I'm known for shipping complex agentic and async systems on my own and for raising the team's quality bar.</p>
+        <ol class="roles">
+          <li class="role" data-start="2024-09"><b>Software Engineer</b><span>Sep 2024 – now · <i data-dur></i></span></li>
+          <li class="role" data-start="2023-03" data-end="2024-09"><b>Junior Software Engineer</b><span>Mar 2023 – Sep 2024 · <i data-dur></i></span></li>
+          <li class="role" data-start="2022-09" data-end="2023-03"><b>Software Engineering Intern</b><span>Sep 2022 – Mar 2023 · <i data-dur></i></span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="chap" id="ai" data-side="left" data-name="AI agent" data-c="#c4b5fd">
+      <div class="card" style="--c:var(--ai)">
+        <p class="eyebrow">Software Engineer · HiAcuity · Sep 2024 – now</p>
+        <h2>AI that interviews candidates, fairly and live</h2>
+        <ul>
+          <li><b>AI Interview &amp; Assessment Agent</b><span>A LangGraph interview engine that questions candidates one competency block at a time. A fairness-critic node screens every follow-up for bias before it reaches the candidate, and scores are written to a structured assessment store.</span><em>LangGraph · Python · FastAPI · MongoDB</em></li>
+          <li><b>Live Interview Transcription &amp; Validation</b><span>A WebSocket pipeline on Recall that streams live transcription from candidate interviews. It checks spoken claims against the candidate's résumé and fact-checks them in real time, surfacing deeper follow-up questions and validation flags to recruiters while the interview is happening.</span><em>Recall · WebSockets · Python · LLMs</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="chap" id="search" data-side="right" data-name="Search &amp; billing" data-c="#86efac">
+      <div class="card" style="--c:var(--be)">
+        <p class="eyebrow">Software Engineer · HiAcuity · Sep 2024 – now</p>
+        <h2>Search and billing the business runs on</h2>
+        <ul>
+          <li><b>Multi-Tenant RAG Candidate Search</b><span>A multi-tenant RAG pipeline on MongoDB Atlas Vector Search with chunked, max-pooled embeddings and Voyage AI reranking. A reasoning step routes structured filters (experience, location, dates) separately from semantic search. It clearly improved match precision over keyword-only search across 100,000+ candidate profiles, with sub-second latency.</span><em>MongoDB Atlas Vector Search · Voyage AI · Python</em></li>
+          <li><b>Stripe Subscription &amp; Billing System</b><span>Owned the full build of a feature-gated subscription system on Stripe. Launched 3 pricing tiers, and webhook-driven access control removed nearly all manual billing exceptions.</span><em>Stripe · FastAPI · webhooks</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="chap" id="team" data-side="left" data-name="Frontend &amp; team" data-c="#7dd3fc">
+      <div class="card" style="--c:var(--fe)">
+        <p class="eyebrow">Software Engineer · HiAcuity · Sep 2024 – now</p>
+        <h2>A faster portal and a better review culture</h2>
+        <ul>
+          <li><b>Frontend engineering</b><span>Reworked the React component architecture of the candidate portal, introducing useReducer and useContext patterns and custom hooks. This cut unnecessary re-renders and simplified state management across the app.</span><em>React · TypeScript · custom hooks</em></li>
+          <li><b>Engineering quality &amp; mentorship</b><span>Set the team's code review standard, running structured reviews and technical walkthroughs that measurably improved PR quality and cut back-and-forth across the board.</span><em>code review · mentoring</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="chap" id="junior" data-side="right" data-name="Junior engineer" data-c="#fdba74">
+      <div class="card" style="--c:var(--inf)">
+        <p class="eyebrow">Junior Software Engineer · HiAcuity · Mar 2023 – Sep 2024</p>
+        <h2>Six services brought into line, and a smaller cloud bill</h2>
+        <ul>
+          <li><b>Microservice standardisation</b><span>Noticed that shared logic had drifted across 6 microservices, then ran a cross-service refactor that consolidated utilities and base classes. Duplication dropped significantly and new engineers got up to speed faster.</span><em>Python · Kubernetes · Docker</em></li>
+          <li><b>Cloud cost reduction</b><span>Dug into production workloads with Prometheus and Grafana, right-sized EC2 instance classes and tightened auto-scaling policies. Monthly infrastructure spend went down with no impact on uptime or performance.</span><em>AWS EC2 · Prometheus · Grafana</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="chap" id="intern" data-side="left" data-name="Intern" data-c="#e6e9ef">
+      <div class="card" style="--c:var(--fg)">
+        <p class="eyebrow">Software Engineering Intern · HiAcuity · Sep 2022 – Mar 2023</p>
+        <h2>Where it started: tests and secure APIs</h2>
+        <ul>
+          <li><b>Test automation &amp; QA</b><span>Built 40+ Selenium test cases covering critical UI flows, which cut manual regression effort considerably. Ran load tests with JMeter and Datadog and flagged 3 performance bottlenecks before they reached production.</span><em>Selenium · JMeter · Datadog</em></li>
+          <li><b>Secure API development</b><span>Built FastAPI endpoints with role- and group-based access control for two kinds of user, candidates and recruiters. The implementation went through a full security review with no access control issues found.</span><em>FastAPI · RBAC</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="chap" id="education" data-side="right" data-name="Education" data-c="#c4b5fd">
+      <div class="card" style="--c:var(--ai)">
+        <p class="eyebrow">On the wall</p>
+        <h2>First Class Honours, earned while working full time</h2>
+        <ul>
+          <li><b>B.Sc. Computer Science (Top-Up), First Class Honours</b><span>APIIT Sri Lanka (Staffordshire University), Kandy · Mar 2023 – Mar 2024</span></li>
+          <li><b>HND Computer Science, Merit</b><span>BCAS Sri Lanka (Pearson), Kandy · Dec 2021 – Sep 2022</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="chap" id="projects" data-side="left" data-name="Projects: AI" data-c="#c4b5fd">
+      <div class="card" style="--c:var(--ai)">
+        <p class="eyebrow">Side projects · shelf, left</p>
+        <h2>Agents, search and the tools around them</h2>
+        <ul>
+          <li><b>AgentTrace: LLM agent observability</b><span>Built because LangSmith doesn't cover self-hosted pipelines well. Hooks into LangGraph callbacks to capture node times, tool-call sequences and per-step token usage, and stores traces in PostgreSQL for cross-run comparison. A React frontend shows live traces as collapsible execution trees over WebSockets; Prometheus tracks latency and cost.</span><em>LangGraph · FastAPI · WebSockets · React · Redis · PostgreSQL · Prometheus</em></li>
+          <li><b>DevTools MCP Server</b><span>An MCP server that gives Claude GitHub PRs, CI run logs and issue trackers through typed tool schemas, so engineers can run code reviews and draft release notes in plain language without leaving the conversation.</span><em>Python MCP SDK · Claude API · GitHub REST API · FastAPI · Docker</em></li>
+          <li><b>AI Resume Search</b><span>A multi-stage retrieval pipeline: LangGraph routes queries through Pinecone vector search, then applies structured MongoDB filters on experience, skills and location. Tested against 10,000+ résumés with consistently strong top-3 matches.</span><em>LangGraph · Pinecone · MongoDB · Python · LLMs</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="chap" id="projects2" data-side="right" data-name="Projects: more" data-c="#fdba74">
+      <div class="card" style="--c:var(--inf)">
+        <p class="eyebrow">Side projects · shelf, right</p>
+        <h2>Trips, floor plans and deadlines</h2>
+        <ul>
+          <li><b>Agentic-Map: multi-agent trip resolver</b><span>Resolves vague stops like "grab a coffee on the way". A supervisor graph runs parallel Scout agents per stop alongside a Navigator (time budget) and a Concierge (weather and ETA), with human-in-the-loop approval and checkpointed, resumable sessions.</span><em>LangGraph · Claude · Google Maps Routes v2 / Places v1 · Open-Meteo</em></li>
+          <li><b>HouseDiffusion: floor plan generator</b><span>A fine-tuned Diffusion and Transformer model for room-level layouts that generates in under 5 seconds. Users arrange rooms on a React drag-and-drop canvas; FastAPI runs inference.</span><em>PyTorch · React · React Flow · FastAPI</em></li>
+          <li><b>Assignment Reminder</b><span>A Selenium tracker that reads LMS deadlines and sends WhatsApp reminders 10, 3 and 1 day out. Runs on EC2 with GitHub Actions CI/CD. 30+ students picked it up in its first semester without any promotion.</span><em>Python · Selenium · AWS EC2 · GitHub Actions</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="chap" id="skills" data-side="left" data-name="Skills" data-c="#93c5fd">
+      <div class="card" style="--c:var(--acc)">
+        <p class="eyebrow">Toolbox</p>
+        <h2>What I work with</h2>
+        <dl class="skills">
+          <dt>AI / ML</dt><dd>LangGraph, LLMs, RAG, AI agents, MongoDB Atlas Vector Search, Voyage, prompt engineering, Claude API, MCP</dd>
+          <dt>Backend</dt><dd>Python, FastAPI, MongoDB, PostgreSQL, GraphQL, REST APIs, Bash, NoSQL</dd>
+          <dt>Frontend</dt><dd>React (TypeScript), Next.js, Vue.js, Tailwind CSS, Bootstrap, JavaScript</dd>
+          <dt>DevOps</dt><dd>Kubernetes, Docker, Helm, Kops, Grafana, Prometheus, GitHub CI/CD</dd>
+          <dt>AWS</dt><dd>EC2, S3, SQS, SES, Lambda, OpenSearch, ECS, IAM, Amplify, SageMaker</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="chap" id="contact" data-side="right" data-name="Contact" data-c="#86efac">
+      <div class="card" style="--c:var(--be)">
+        <p class="eyebrow">Found a match?</p>
+        <h2>I'm open to full-stack and AI engineering roles</h2>
+        <p>Email is the fastest way to reach me.</p>
+        <p class="contact-lines"><a href="mailto:s.hameedakmal@gmail.com">s.hameedakmal@gmail.com</a><span><a href="tel:+12039974545">+1 (203) 997-4545</a> · Queens, New York</span></p>
+        <div class="btns">
+          <a class="btn pri" href="./Akmal_Hameed.pdf" download>Download résumé <span class="btn-note">PDF</span></a>
+          <button type="button" class="btn copy-btn" data-copy="s.hameedakmal@gmail.com">Copy email</button>
+          <a class="btn" href="https://linkedin.com/in/akmalhameed" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://github.com/sakmalh" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </section>
-  </div>
+  </main>
 
-  <section id="skills" aria-labelledby="skills-h">
-    <h2 class="label" id="skills-h">Skills · tap one to filter</h2>
-    <div class="skills">
-      <div class="grp" style="--c:var(--be)"><div class="gl">backend</div><div class="chips">
-        <button type="button" data-s="Python">Python</button><button type="button" data-s="FastAPI">FastAPI</button><button type="button" data-s="MongoDB">MongoDB</button><button type="button" data-s="PostgreSQL">PostgreSQL</button><button type="button" data-s="REST APIs">REST APIs</button><button type="button" data-s="WebSockets">WebSockets</button><button type="button" data-s="Microservices">Microservices</button><button type="button" data-s="Redis">Redis</button>
-      </div></div>
-      <div class="grp" style="--c:var(--ai)"><div class="gl">ai</div><div class="chips">
-        <button type="button" data-s="LangGraph">LangGraph</button><button type="button" data-s="LLM agents">LLM agents</button><button type="button" data-s="RAG">RAG</button><button type="button" data-s="Vector search">Vector search</button><button type="button" data-s="Claude API">Claude API</button><button type="button" data-s="MCP">MCP</button><button type="button" data-s="PyTorch">PyTorch</button>
-      </div></div>
-      <div class="grp" style="--c:var(--inf)"><div class="gl">infra</div><div class="chips">
-        <button type="button" data-s="Kubernetes">Kubernetes</button><button type="button" data-s="Docker">Docker</button><button type="button" data-s="AWS">AWS</button><button type="button" data-s="Prometheus">Prometheus</button><button type="button" data-s="Grafana">Grafana</button><button type="button" data-s="CI/CD">CI/CD</button><button type="button" data-s="Testing">Testing</button>
-      </div></div>
-      <div class="grp" style="--c:var(--fe)"><div class="gl">frontend</div><div class="chips">
-        <button type="button" data-s="React">React</button><button type="button" data-s="TypeScript">TypeScript</button>
-      </div></div>
-      <div class="grp" style="--c:var(--acc)"><div class="gl">product</div><div class="chips">
-        <button type="button" data-s="Payments">Payments</button><button type="button" data-s="Security">Security</button><button type="button" data-s="Mentoring">Mentoring</button>
-      </div></div>
-    </div>
-    <p class="status" id="status" aria-live="polite">Showing everything. Tap a skill to highlight where I used it.</p>
-  </section>
-
-  <section id="work" aria-labelledby="work-h">
-    <h2 class="label" id="work-h">Where I've used them</h2>
-    <div class="cards">
-      <article class="card" data-skills="LangGraph|LLM agents|Python|FastAPI|MongoDB">
-        <div class="k">HiAcuity · 2024–now</div><h3>AI interview &amp; assessment agent</h3>
-        <p>LangGraph state machine, one skill area at a time. A fairness check screens every follow-up before it is asked. Every run can be replayed.</p>
-      </article>
-      <article class="card" data-skills="RAG|Vector search|MongoDB|Python|LangGraph|Security">
-        <div class="k">HiAcuity · 2024–now</div><h3>Multi-tenant candidate search</h3>
-        <p>100,000+ profiles in under a second. MongoDB filters, then vector search, then Voyage AI reranks the shortlist. Each customer's data is kept separate at the database level.</p>
-      </article>
-      <article class="card" data-skills="Payments|Python|FastAPI|REST APIs">
-        <div class="k">HiAcuity · 2024–now</div><h3>Stripe subscriptions &amp; billing</h3>
-        <p>Three plans. Access follows Stripe webhooks, so it changes the moment payment does. Manual billing fixes went to almost zero.</p>
-      </article>
-      <article class="card" data-skills="WebSockets|LLM agents|Python|FastAPI">
-        <div class="k">HiAcuity · 2024–now</div><h3>Live interview transcription</h3>
-        <p>Transcribes interviews live and checks what candidates say against their résumé while the interview is running.</p>
-      </article>
-      <article class="card" data-skills="React|TypeScript">
-        <div class="k">HiAcuity · 2024–now</div><h3>Candidate portal rebuild</h3>
-        <p>Rebuilt the React portal's state with useReducer and useContext, so typing no longer re-renders the whole page.</p>
-      </article>
-      <article class="card" data-skills="Mentoring">
-        <div class="k">HiAcuity · 2024–now</div><h3>Code review standard</h3>
-        <p>Set the team's code review standard and ran technical walkthroughs.</p>
-      </article>
-      <article class="card" data-skills="Microservices|Python|Kubernetes|Docker">
-        <div class="k">HiAcuity · 2023–24</div><h3>Microservice standardisation</h3>
-        <p>Merged duplicated logic across 6 services into shared libraries, so a fix lands once instead of six times.</p>
-      </article>
-      <article class="card" data-skills="AWS|Prometheus|Grafana|Kubernetes">
-        <div class="k">HiAcuity · 2023–24</div><h3>Cloud cost reduction</h3>
-        <p>Measured real usage in Prometheus and Grafana, then resized EC2 and tuned auto-scaling. Uptime and speed didn't change.</p>
-      </article>
-      <article class="card" data-skills="Testing|FastAPI|Security|Python|REST APIs">
-        <div class="k">HiAcuity · 2022–23</div><h3>Testing &amp; secure APIs</h3>
-        <p>40+ Selenium tests, load tests that found 3 bottlenecks before release, and FastAPI endpoints with role-based access that passed a full security review.</p>
-      </article>
-      <article class="card" data-skills="LangGraph|LLM agents|PostgreSQL|Redis|WebSockets|React|FastAPI|Prometheus">
-        <div class="k">Side project</div><h3>AgentTrace</h3>
-        <p>Watch AI agents run live: every step, tool call and cost, stored in PostgreSQL and streamed to a React dashboard.</p>
-      </article>
-      <article class="card" data-skills="MCP|Claude API|Python|FastAPI|Docker|CI/CD">
-        <div class="k">Side project</div><h3>DevTools MCP Server</h3>
-        <p>Lets Claude read GitHub pull requests, CI logs and issues through typed tools.</p>
-      </article>
-      <article class="card" data-skills="LangGraph|LLM agents|Claude API">
-        <div class="k">Side project</div><h3>Agentic-Map</h3>
-        <p>Several AI agents plan a trip with vague stops, with a human approving each step and sessions that can be resumed.</p>
-      </article>
-      <article class="card" data-skills="RAG|Vector search|LangGraph|MongoDB|Python">
-        <div class="k">Side project</div><h3>AI Resume Search</h3>
-        <p>Matches candidates across 10,000+ résumés with Pinecone and MongoDB filters.</p>
-      </article>
-      <article class="card" data-skills="PyTorch|FastAPI|React">
-        <div class="k">Side project</div><h3>HouseDiffusion</h3>
-        <p>Generates floor plans in under 5 seconds instead of hours of drafting.</p>
-      </article>
-    </div>
-  </section>
-
-  <footer id="contact" class="foot" aria-labelledby="contact-h">
-    <div>
-      <h2 id="contact-h">Found a match?</h2>
-      <p>Email is the fastest way to reach me. My full résumé is one click away.</p>
-    </div>
-    <div class="foot-links">
-      <a class="btn btn-pri" href="./Akmal_Hameed.pdf" download>Download résumé <span class="btn-note">PDF</span></a>
-      <a href="mailto:s.hameedakmal@gmail.com">s.hameedakmal@gmail.com</a>
-      <a href="tel:+12039974545">+1 (203) 997-4545</a>
-      <a href="https://linkedin.com/in/akmalhameed" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/sakmalh" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </footer>
-
-</main>
 </body>
 </html>

@@ -1,24 +1,32 @@
 # akmal.sh — personal site
 
-Personal site for Akmal Hameed. Dark, readable, built around one idea: every
-skill links to the work that proves it. Tap a skill chip and the cards where it
-was used light up; the rest dim.
+Personal site for Akmal Hameed, told as a scroll story. A generic 3D figure sits
+at a desk (the real photo, `public/akmal.jpg`, is on the About card); as you scroll, the camera moves to
+the part of the room that goes with each chapter: the face for About, a
+thought graph above the head for the AI agent, the laptop for search and
+billing, a server rack for the junior role, a whiteboard for the internship,
+diplomas for education and a shelf of objects for side projects. Every résumé
+point sits in a text card beside the scene, so nothing depends on the 3D.
 
-Up top: availability, a "right now" card, and a facts strip (years of
-experience, roles, degree, location). Experience and education sit side by
-side. The résumé PDF (`public/Akmal_Hameed.pdf`) downloads from the sticky bar,
-the "right now" card and the footer.
+The résumé PDF (`public/Akmal_Hameed.pdf`) downloads from the top bar, the
+intro and the contact card.
 
 ## Stack
 
-- Static HTML (`index.html`), one stylesheet (`src/style.css`) and a small script (`src/main.js`).
-- All content is plain HTML; JS only adds the skill filter, the copy-email button, and keeps the years of experience and role durations current (computed from start dates).
+- All content is plain HTML in `index.html`: one `<section class="chap">` per chapter.
+- `src/main.js` builds the chapter rail, keeps years of experience and role
+  durations current, wires the copy-email button, then lazy-loads the scene.
+- `src/story.js` is the three.js scene. Camera stops are keyed by section id
+  in `STOPS`; chapter props fade in by the same ids.
+- three.js ships as its own chunk and loads only after the page has rendered.
+  Browsers without WebGL (or with Save-Data on) get `body.no-3d`: the same cards
+  as a plain page, and three.js is never downloaded.
+- Reduced motion keeps the scroll-driven camera but drops idle animation.
 - Dark-only by design. Fonts: Onest and Geist Mono from Google Fonts.
-- Vite bundles and fingerprints assets. No runtime dependencies.
 
-To add a piece of work, add an `<article class="card" data-skills="A|B|C">` in
-`index.html`. Chip counts update automatically, and the smoke test fails if any
-skill chip has no card behind it.
+To add a chapter: add a `<section class="chap" id="…" data-side="left|right"
+data-name="…" data-c="#hex">` in `index.html` and a matching camera stop in
+`STOPS` in `src/story.js`.
 
 ## Develop
 
@@ -29,11 +37,12 @@ npm run build      # production build → dist/
 npm test           # build first; spawns vite preview and runs tests/smoke.mjs
 ```
 
-The smoke test (37 checks) verifies content (sections, nav links, facts,
-computed years of experience, roles, education, résumé download links and PDF
-served), that every skill has evidence, the skill filter, readability (≥16px
-body text, line measure, no horizontal overflow at 1440px and 375px), the dark
-theme, and the copy-email button. Screenshots land in `tests/shots/`.
+The smoke test (34 checks) verifies content (chapters in order, rail links,
+every résumé item present, stack lines, computed years and durations, photo,
+résumé links and PDF served), that the 3D scene loads, renders at every stop and
+moves between them, the no-WebGL fallback, layout at 1440px and 375px, reduced
+motion, the dark theme, and the copy-email button. Screenshots of every stop
+land in `tests/shots/`.
 
 ## Deploy
 
